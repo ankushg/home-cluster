@@ -2,7 +2,7 @@
 on:
   workflow_dispatch:
   schedule:
-    - cron:  "0 0 1 * *"
+    - cron: "0 0 1 * *"
 jobs:
   repo-sync:
     runs-on: ubuntu-latest
@@ -14,4 +14,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           source_repo_path: k8s-at-home/template-cluster-k3s
-  
