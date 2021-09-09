@@ -1,0 +1,16 @@
+---
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 1 * *"
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: actions-template-sync
+        uses: AndreasAugustin/actions-template-sync@v0.1.6-draft
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          source_repo_path: k8s-at-home/template-cluster-k3s
