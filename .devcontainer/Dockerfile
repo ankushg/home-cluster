@@ -36,8 +36,8 @@ CMD [ "sleep", "infinity" ]
 # kustomize	Template-free way to customize application configuration (built into kubectl)
 
 # k3sup	Tool to install k3s on your nodes
-RUN curl -sLS https://get.k3sup.dev | sh
-RUN sudo install k3sup /usr/local/bin/
+RUN curl -sLS https://get.k3sup.dev | sh \
+    && sudo install k3sup /usr/local/bin/
 
 
 # flux	Operator that manages your k8s cluster based on your Git repository
@@ -71,4 +71,4 @@ RUN npm install prettier
 
 # TODO: add to zshrc
 RUN echo -e "command -v flux >/dev/null && . <(flux completion zsh) && compdef _flux flux" > ${user_rc_file}
-RUN echo -e "eval \"$(direnv hook zsh)\"" > > ${user_rc_file}
+RUN echo -e "eval \"$(direnv hook zsh)\"" > ${user_rc_file}
