@@ -1,36 +1,27 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.192.0/containers/kubernetes-helm-minikube
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.192.0/containers/alpine
 {
-	"name": "Kubernetes - Minikube-in-Docker",
-	"dockerFile": "Dockerfile",
-	"runArgs": ["--init", "--privileged"],
-	"mounts": [
-		"source=minikube-var-lib-docker,target=/var/lib/docker,type=volume",
-		"source=minikube-config,target=/home/vscode/.minikube,type=volume",
-	],
-	"overrideCommand": false,
-
-	// Set *default* container specific settings.json values on container create.
+	"name": "k8s@home",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	
+	// Set *default* container specific settings.json values on container create. 
 	"settings": {},
 
 	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		"ms-azuretools.vscode-docker",
-		"ms-kubernetes-tools.vscode-kubernetes-tools"
-	],
+	// Note that some extensions may not work in Alpine Linux. See https://aka.ms/vscode-remote/linux.
+	"extensions": [],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": [
-		"kubectl version",
-		"pre-commit install-hooks"
-	],
+	// "postCreateCommand": "uname -a",
 
-	// Use 'postStartCommand' to run commands after the container is created like starting minikube.
-	// "postStartCommand": "nohup bash -c 'minikube start &' > minikube.log 2>&1",
+	// Uncomment when using a ptrace-based debugger like C++, Go, and Rust
+	// "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
 
-	// Minikube does not like running as root, so use a non-root user.
-	"remoteUser": "vscode"
+	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "linuxbrew"
 }
