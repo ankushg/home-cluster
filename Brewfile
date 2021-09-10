@@ -6,6 +6,11 @@ brew "kubectl"
 brew "fluxcd/tap/flux"
 brew "sops"
 brew "gnupg"
+if OS.mac?
+  brew "pinentry-mac"
+else
+  brew "pinentry"
+end
 brew "pinentry"
 brew "direnv"
 brew "pre-commit"
