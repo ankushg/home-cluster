@@ -11,13 +11,21 @@
 
 	// Add the IDs of extensions you want installed when the container is created.
 	// Note that some extensions may not work in Alpine Linux. See https://aka.ms/vscode-remote/linux.
-	"extensions": [],
+	"extensions": [
+		"signageos.signageos-vscode-sops",
+		"redhat.vscode-yaml",
+		"timonwong.shellcheck",
+		"paulvarache.vscode-taskfile",
+		"esbenp.prettier-vscode",
+		"editorconfig.editorconfig",
+		"eamodio.gitlens"
+	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "uname -a",
+	"postCreateCommand": ".devcontainer/user-scripts/install-dev-tools.sh",
 
 	// Uncomment when using a ptrace-based debugger like C++, Go, and Rust
 	// "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
