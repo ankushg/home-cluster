@@ -29,8 +29,3 @@ spec:
     provider: sops
     secretRef:
       name: sops-gpg
-  postBuild:
-    substitute: {}
-    substituteFrom:
-      - kind: Secret
-        name: git-ssh-credentials
