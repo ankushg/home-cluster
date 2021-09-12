@@ -8,9 +8,7 @@ spec:
   interval: 1m0s
   ref:
     branch: main
-  url: ssh://git@github.com/ankushg/home-cluster
-  secretRef:
-    name: git-ssh-credentials
+  url: https://github.com/ankushg/home-cluster
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
 kind: Kustomization
