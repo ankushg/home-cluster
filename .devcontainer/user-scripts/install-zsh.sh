@@ -15,6 +15,6 @@ echo "Installing oh-my-zsh..."
     -p helm \
     -p kubectl \
     -p https://github.com/zsh-users/zsh-autosuggestions \
-    -a 'command -v flux >/dev/null && . <(flux completion zsh) && compdef _flux flux'
+    -a 'command -v flux >/dev/null && . <(flux completion zsh)'
 
 echo "oh-my-zsh installed!"
