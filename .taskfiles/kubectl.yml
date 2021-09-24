@@ -1,0 +1,20 @@
+---
+version: "3"
+
+tasks:
+  kustomizations:
+    desc: Show the health of your kustomizations
+    cmds:
+      - kubectl get kustomization -A
+  flux:
+    desc: Verify flux-system pods
+    cmds:
+      - kubectl get pods -n flux-system
+  pods:
+    desc: Verify all pods
+    cmds:
+      - kubectl get pods -A
+  nodes:
+    desc: Verify all nodes
+    cmds:
+      - kubectl get nodes -A
