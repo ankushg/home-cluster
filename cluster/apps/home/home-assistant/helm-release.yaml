@@ -50,4 +50,4 @@ spec:
               - "hass.${SECRET_DOMAIN}"
             secretName: "hass-tls"
     podAnnotations:
-      configmap.reloader.stakater.com/reload: "home-assistant-settings"
+      configmap.reloader.stakater.com/reload: "home-assistant-config-v1"
