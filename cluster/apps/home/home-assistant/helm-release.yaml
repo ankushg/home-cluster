@@ -25,7 +25,7 @@ spec:
     service:
       main:
         type: LoadBalancer
-        loadBalancerIP: "${SVC_TRAEFIK_ADDR}"
+        loadBalancerIP: "${SVC_HOMEASSISTANT_ADDR}"
         externalTrafficPolicy: Local
     ingress:
       main:
