@@ -22,6 +22,10 @@ spec:
       tag: 2021.9.7
     env:
       TZ: "America/Los_Angeles"
+    service:
+      main:
+        type: LoadBalancer
+        loadBalancerIP: "${SVC_TRAEFIK_ADDR}"
     ingress:
       main:
         enabled: true
