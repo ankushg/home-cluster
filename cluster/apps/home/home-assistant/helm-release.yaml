@@ -22,11 +22,6 @@ spec:
       tag: 2021.9.7
     env:
       TZ: "America/Los_Angeles"
-    service:
-      main:
-        type: LoadBalancer
-        loadBalancerIP: "${SVC_HOMEASSISTANT_ADDR}"
-        externalTrafficPolicy: Local
     ingress:
       main:
         enabled: true
@@ -52,3 +47,35 @@ spec:
         subPath: data
     podAnnotations:
       configmap.reloader.stakater.com/reload: "home-assistant-config-v1"
+    addons:
+      codeserver:
+        enabled: true
+        image:
+          repository: ghcr.io/k8s-at-home/code-server
+          tag: v3.12.0
+        git:
+          deployKeySecret: code-server
+        workingDir: "/config"
+        args:
+          - --auth
+          - "none"
+          - --user-data-dir
+          - "/config/.vscode"
+          - --extensions-dir
+          - "/config/.vscode"
+        ingress:
+          enabled: true
+          ingressClassName: "traefik"
+          annotations:
+            traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          hosts:
+            - host: "hass-config.${SECRET_DOMAIN}"
+              paths:
+                - path: /
+                  pathType: Prefix
+          tls:
+            - hosts:
+                - "hass-config.${SECRET_DOMAIN}"
+        volumeMounts:
+          - name: config
+            mountPath: /config
