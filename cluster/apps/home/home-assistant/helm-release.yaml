@@ -22,11 +22,6 @@ spec:
       tag: 2021.9.7
     env:
       TZ: "America/Los_Angeles"
-    persistence:
-      config:
-        enabled: true
-        existingClaim: home-assistant-config-v1
-        subPath: data
     ingress:
       main:
         enabled: true
@@ -45,5 +40,10 @@ spec:
           - hosts:
               - "home-assistant.${SECRET_DOMAIN}"
             secretName: "home-assistant-tls"
+    persistence:
+      config:
+        enabled: true
+        existingClaim: home-assistant-config-v1
+        subPath: data
     podAnnotations:
       configmap.reloader.stakater.com/reload: "home-assistant-config-v1"
