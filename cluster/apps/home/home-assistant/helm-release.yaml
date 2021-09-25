@@ -26,6 +26,7 @@ spec:
       main:
         type: LoadBalancer
         loadBalancerIP: "${SVC_TRAEFIK_ADDR}"
+        externalTrafficPolicy: Local
     ingress:
       main:
         enabled: true
@@ -36,13 +37,13 @@ spec:
           hajimari.io/icon: "home-automation"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
-          - host: "home-assistant.${SECRET_DOMAIN}"
+          - host: "hass.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - "home-assistant.${SECRET_DOMAIN}"
+              - "hass.${SECRET_DOMAIN}"
             secretName: "home-assistant-tls"
     persistence:
       config:
