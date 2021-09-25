@@ -27,10 +27,6 @@ spec:
         enabled: true
         existingClaim: home-assistant-config-v1
         subPath: data
-    service:
-      main:
-        type: LoadBalancer
-        loadBalancerIP: "${SVC_TRAEFIK_ADDR}"
     ingress:
       main:
         enabled: true
