@@ -75,6 +75,7 @@ spec:
           tls:
             - hosts:
                 - "hass-config.${SECRET_DOMAIN}"
+              secretName: "home-assistant-config-tls"
         volumeMounts:
           - name: config
             mountPath: /config
