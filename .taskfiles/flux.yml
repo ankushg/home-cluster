@@ -7,14 +7,3 @@ tasks:
     cmds:
       - flux reconcile source git flux-system
     silent: true
-  verify:
-    desc: Verify flux-system nodes
-    cmds:
-      - "task kubectl:flux:"
-  health:
-    desc: View health of main Flux GitRepository, HelmReleases, and HelmRepositories
-    cmds:
-      - flux --kubeconfig=./kubeconfig get sources git
-      - flux --kubeconfig=./kubeconfig get helmrelease -A
-      - flux --kubeconfig=./kubeconfig get sources helm -A
-      - flux --kubeconfig=./kubeconfig get kustomizations -A
