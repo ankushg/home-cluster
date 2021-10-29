@@ -26,13 +26,13 @@ main() {
     parse_command_line "$@"
 
     verify_binaries
+    verify_nodes
+    verify_metallb
+    verify_gpg
+    verify_git_repository
+    verify_cloudflare
 
     if [[ "${verify}" == 1 ]]; then
-        verify_nodes
-        verify_metallb
-        verify_gpg
-        verify_git_repository
-        verify_cloudflare
         success
     else
         # sops configuration file
