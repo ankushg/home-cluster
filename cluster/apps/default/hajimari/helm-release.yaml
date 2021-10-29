@@ -26,6 +26,7 @@ spec:
         matchNames:
           - default
           - networking
+          - home
       name: "you"
     ingress:
       main:
