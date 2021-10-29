@@ -23,11 +23,8 @@ spec:
     hajimari:
       defaultEnable: true
       namespaceSelector:
-        matchNames:
-          - default
-          - networking
-          - home
-      name: "you"
+        any: true
+      name: "Ankush"
     ingress:
       main:
         enabled: true
