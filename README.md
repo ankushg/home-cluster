@@ -6,12 +6,12 @@ The purpose here is to showcase how you can deploy an entire Kubernetes cluster 
 
 ## Overview
 
-- [Introduction](https://github.com/k8s-at-home/template-cluster-k3s#wave-introduction)
-- [Prerequisites](https://github.com/k8s-at-home/template-cluster-k3s#memo-prerequisites)
-- [Repository structure](https://github.com/k8s-at-home/template-cluster-k3s#open_file_folder-repository-structure)
-- [Lets go!](https://github.com/k8s-at-home/template-cluster-k3s#rocket-lets-go)
-- [Post installation](https://github.com/k8s-at-home/template-cluster-k3s#mega-post-installation)
-- [Thanks](https://github.com/k8s-at-home/template-cluster-k3s#handshake-thanks)
+- [Introduction](#wave-introduction)
+- [Prerequisites](#memo-prerequisites)
+- [Repository structure](#open_file_folder-repository-structure)
+- [Lets go!](#rocket-lets-go)
+- [Post installation](#mega-post-installation)
+- [Thanks](#handshake-thanks)
 
 ## :wave:&nbsp; Introduction
 
@@ -37,7 +37,7 @@ Already provisioned Bare metal or VMs with any modern operating system like Ubun
 
 If coming from a fresh install of Linux make sure you do the following steps.
 
-- Copy over your SSH keys to all the hosts
+- Enable SSH logins via certificates for all of the hosts
 
 - Enable packet forwarding on the hosts and increase max_user_watches
 
@@ -128,7 +128,7 @@ Very first step will be to create a new repository by clicking the **Use this te
 
 ```sh
 export GPG_TTY=$(tty)
-export PERSONAL_KEY_NAME="First name Last name (location) <email>"
+export BOOTSTRAP_PERSONAL_KEY_NAME="First name Last name (location) <email>"
 
 gpg --batch --full-generate-key <<EOF
 Key-Type: 1
@@ -136,23 +136,24 @@ Key-Length: 4096
 Subkey-Type: 1
 Subkey-Length: 4096
 Expire-Date: 0
-Name-Real: ${PERSONAL_KEY_NAME}
+Name-Real: ${BOOTSTRAP_PERSONAL_KEY_NAME}
 EOF
 
-gpg --list-secret-keys "${PERSONAL_KEY_NAME}"
+gpg --list-secret-keys "${BOOTSTRAP_PERSONAL_KEY_NAME}"
 # pub   rsa4096 2021-03-11 [SC]
 #       772154FFF783DE317KLCA0EC77149AC618D75581
 # uid           [ultimate] k8s@home (Macbook) <k8s-at-home@gmail.com>
 # sub   rsa4096 2021-03-11 [E]
 
-export PERSONAL_KEY_FP=772154FFF783DE317KLCA0EC77149AC618D75581
+# Add to .config.env:
+# export BOOTSTRAP_PERSONAL_KEY_FP=772154FFF783DE317KLCA0EC77149AC618D75581
 ```
 
 2. Create a Flux GPG Key and export the fingerprint
 
 ```sh
 export GPG_TTY=$(tty)
-export FLUX_KEY_NAME="Cluster name (Flux) <email>"
+export BOOTSTRAP_FLUX_KEY_NAME="Cluster name (Flux) <email>"
 
 gpg --batch --full-generate-key <<EOF
 %no-protection
@@ -164,13 +165,60 @@ Expire-Date: 0
 Name-Real: ${FLUX_KEY_NAME}
 EOF
 
-gpg --list-secret-keys "${FLUX_KEY_NAME}"
+gpg --list-secret-keys "${BOOTSTRAP_FLUX_KEY_NAME}"
 # pub   rsa4096 2021-03-11 [SC]
 #       AB675CE4CC64251G3S9AE1DAA88ARRTY2C009E2D
 # uid           [ultimate] Home cluster (Flux) <k8s-at-home@gmail.com>
 # sub   rsa4096 2021-03-11 [E]
 
-export FLUX_KEY_FP=AB675CE4CC64251G3S9AE1DAA88ARRTY2C009E2D
+# Add to .config.env:
+# export BOOTSTRAP_FLUX_KEY_FP=AB675CE4CC64251G3S9AE1DAA88ARRTY2C009E2D
+```
+
+3. You will need the Fingerprints in the configuration section below. For example, in the above steps you will need `772154FFF783DE317KLCA0EC77149AC618D75581` and `AB675CE4CC64251G3S9AE1DAA88ARRTY2C009E2D`
+
+
+### :cloud:&nbsp; Global Cloudflare API Key
+
+In order to use `cert-manager` with the Cloudflare DNS challenge you will need to create a API key.
+
+1. Head over to Cloudflare and create a API key by going [here](https://dash.cloudflare.com/profile/api-tokens).
+
+2. Under the `API Keys` section, create a global API Key.
+
+3. Use the API Key in the configuration section below.
+
+```sh
+# export BOOTSTRAP_CLOUDFLARE_DOMAIN="k8s-at-home.com"
+# export BOOTSTRAP_CLOUDFLARE_EMAIL="k8s-at-home@gmail.com"
+# export BOOTSTRAP_CLOUDFLARE_TOKEN="kpG6iyg3FS_du_8KRShdFuwfbwu3zMltbvmJV6cD"
+```
+
+
+### :page_facing_up:&nbsp; Configuration
+
+:round_pushpin: The `.config.env` file contains necessary configuration files that are needed to set thing up.
+
+1. Copy the `.config.sample.env` to `.config.env` and start filling out all the environment variables based on the steps above.
+
+2. You will need to export more environment variables for application configuration  **All are required** and read the comments they will explain further what is required.
+
+3. Once that is done, verify the configuration is correct by running `./configure.sh --verify`
+
+4. If you do not encounter any errors run `./configure.sh` to start having the script wire up the templated files and place them where they need to be.
+
+:round_pushpin: Variables defined in `cluster-secrets.sops.yaml` and `cluster-settings.sops.yaml` will be usable anywhere in your YAML manifests under `./cluster`
+
+5. **Verify** all the above files have the correct information present, and no secrets are committed to your repo.
+
+6. If you verified all the secrets are encrypted, you can delete the `tmpl` directory now
+
+7.  Push your changes to git
+
+```sh
+git add -A
+git commit -m "initial commit"
+git push
 ```
 
 ### :sailboat:&nbsp; Installing k3s with k3sup
@@ -210,28 +258,6 @@ kubectl --kubeconfig=./kubeconfig get nodes
 # k8s-worker-a   Ready    worker                    4d20h   v1.21.4+k3s1
 ```
 
-### :cloud:&nbsp; Cloudflare API Token
-
-:round_pushpin: You may skip this step, **however** make sure to `export` dummy data **on item 8** in the below list.
-
-...Be aware you **will not** have a valid SSL cert until `cert-manager` is configured correctly
-
-In order to use `cert-manager` with the Cloudflare DNS challenge you will need to create a API token.
-
-1. Head over to Cloudflare and create a API token by going [here](https://dash.cloudflare.com/profile/api-tokens).
-2. Click the blue `Create Token` button
-3. Scroll down and create a Custom Token by choosing `Get started`
-4. Give your token a name like `cert-manager`
-5. Under `Permissions` give **read** access to `Zone` : `Zone` and **write** access to `Zone` : `DNS`
-6. Under `Zone Resources` set it to `Include` : `All Zones`
-7. Click `Continue to summary` and then `Create Token`
-8. Export this token and your Cloudflare email address to an environment variable on your system to be used in the following steps
-
-```sh
-export BOOTSTRAP_CLOUDFLARE_EMAIL="k8s-at-home@gmail.com"
-export BOOTSTRAP_CLOUDFLARE_TOKEN="kpG6iyg3FS_du_8KRShdFuwfbwu3zMltbvmJV6cD"
-```
-
 ### :small_blue_diamond:&nbsp; GitOps with Flux
 
 :round_pushpin: Here we will be installing [flux](https://toolkit.fluxcd.io/) after some quick bootstrap steps.
@@ -255,61 +281,13 @@ kubectl --kubeconfig=./kubeconfig create namespace flux-system --dry-run=client 
 3. Add the Flux GPG key in-order for Flux to decrypt SOPS secrets
 
 ```sh
-gpg --export-secret-keys --armor "${FLUX_KEY_FP}" |
+gpg --export-secret-keys --armor "${BOOTSTRAP_FLUX_KEY_FP}" |
 kubectl --kubeconfig=./kubeconfig create secret generic sops-gpg \
     --namespace=flux-system \
     --from-file=sops.asc=/dev/stdin
 ```
 
-4. Export more environment variables for application configuration
-
-```sh
-# The repo you created from this template
-export BOOTSTRAP_GITHUB_REPOSITORY="https://github.com/k8s-at-home/home-cluster"
-# Choose one of your domains or use a made up one
-export BOOTSTRAP_DOMAIN="k8s-at-home.com"
-# Pick a range of unused IPs that are on the same network as your nodes
-# You don't need many IPs, just choose 10 to start with
-export BOOTSTRAP_METALLB_LB_RANGE="169.254.1.10-169.254.1.20"
-# The load balancer IP for traefik, choose from one of the available IPs above
-export BOOTSTRAP_SVC_TRAEFIK_ADDR="169.254.1.10"
-```
-
-5. Create required files based on ALL exported environment variables.
-
-```sh
-envsubst < ./tmpl/.sops.yaml > ./.sops.yaml
-envsubst < ./tmpl/cluster-secrets.sops.yaml > ./cluster/base/cluster-secrets.sops.yaml
-envsubst < ./tmpl/cluster-settings.yaml > ./cluster/base/cluster-settings.yaml
-envsubst < ./tmpl/gotk-sync.yaml > ./cluster/base/flux-system/gotk-sync.yaml
-envsubst < ./tmpl/secret.sops.yaml > ./cluster/core/cert-manager/secret.sops.yaml
-```
-
-6. **Verify** all the above files have the correct information present
-
-7. Encrypt `cluster/cluster-secrets.sops.yaml` and `cert-manager/secret.sops.yaml` with SOPS
-
-```sh
-export GPG_TTY=$(tty)
-sops --encrypt --in-place ./cluster/base/cluster-secrets.sops.yaml
-sops --encrypt --in-place ./cluster/core/cert-manager/secret.sops.yaml
-```
-
-:round_pushpin: Variables defined in `cluster-secrets.sops.yaml` and `cluster-settings.sops.yaml` will be usable anywhere in your YAML manifests under `./cluster`
-
-8. **Verify** all the above files are **encrypted** with SOPS
-
-9. If you verified all the secrets are encrypted, you can delete the `tmpl` directory now
-
-10. Push you changes to git
-
-```sh
-git add -A
-git commit -m "initial commit"
-git push
-```
-
-11. Install Flux
+4. Install Flux
 
 :round_pushpin: Due to race conditions with the Flux CRDs you will have to run the below command twice. There should be no errors on this second run.
 
@@ -326,11 +304,7 @@ kubectl --kubeconfig=./kubeconfig apply --kustomize=./cluster/base/flux-system
 # unable to recognize "./cluster/base/flux-system": no matches for kind "HelmRepository" in version "source.toolkit.fluxcd.io/v1beta1"
 ```
 
-:tada: **Congratulations** you have a Kubernetes cluster managed by Flux, your Git repository is driving the state of your cluster.
-
-## :mega:&nbsp; Post installation
-
-### Verify Flux
+5. Verify Flux components are running in the cluster
 
 ```sh
 kubectl --kubeconfig=./kubeconfig get pods -n flux-system
@@ -341,6 +315,11 @@ kubectl --kubeconfig=./kubeconfig get pods -n flux-system
 # source-controller-7d6875bcb4-zqw9f         1/1     Running   0          1h
 ```
 
+
+:tada: **Congratulations** you have a Kubernetes cluster managed by Flux, your Git repository is driving the state of your cluster.
+
+## :mega:&nbsp; Post installation
+
 ### Verify ingress
 
 If your cluster is not accessible to outside world you can update your hosts file to verify the ingress controller is working.
@@ -348,10 +327,10 @@ If your cluster is not accessible to outside world you can update your hosts fil
 This will only be temporary and you should set up DNS to handle these records either manually or automated with [external-dns](https://github.com/kubernetes-sigs/external-dns).
 
 ```sh
-echo "${BOOTSTRAP_SVC_TRAEFIK_ADDR} ${BOOTSTRAP_DOMAIN} hajimari.${BOOTSTRAP_DOMAIN}" | sudo tee -a /etc/hosts
+echo "${BOOTSTRAP_SVC_TRAEFIK_ADDR} ${BOOTSTRAP_CLOUDFLARE_DOMAIN} hajimari.${BOOTSTRAP_CLOUDFLARE_DOMAIN}" | sudo tee -a /etc/hosts
 ```
 
-Head over to your browser and you _should_ be able to access `https://hajimari.${BOOTSTRAP_DOMAIN}`
+Head over to your browser and you _should_ be able to access `https://hajimari.${BOOTSTRAP_CLOUDFLARE_DOMAIN}`
 
 ### direnv
 
