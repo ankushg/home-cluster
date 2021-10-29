@@ -8,8 +8,6 @@ spec:
   interval: 1m0s
   ref:
     branch: main
-  secretRef:
-    name: flux-git-auth
   url: ssh://git@github.com/ankushg/home-cluster
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
