@@ -176,14 +176,13 @@ verify_cloudflare() {
     local account_zone=
     local errors=
 
-    _has_envar "BOOTSTRAP_CLOUDFLARE_APIKEY"
+    _has_envar "BOOTSTRAP_CLOUDFLARE_TOKEN"
     _has_envar "BOOTSTRAP_CLOUDFLARE_DOMAIN"
     _has_envar "BOOTSTRAP_CLOUDFLARE_EMAIL"
 
     # Try to retrieve zone information from Cloudflare's API
     account_zone=$(curl -s -X GET "https://api.cloudflare.com/client/v4/zones?name=${BOOTSTRAP_CLOUDFLARE_DOMAIN}&status=active" \
-        -H "X-Auth-Email: ${BOOTSTRAP_CLOUDFLARE_EMAIL}" \
-        -H "X-Auth-Key: ${BOOTSTRAP_CLOUDFLARE_APIKEY}" \
+        -H "Authorization: Bearer ${BOOTSTRAP_CLOUDFLARE_TOKEN}" \
         -H "Content-Type: application/json"
     )
 

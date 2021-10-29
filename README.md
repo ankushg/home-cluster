@@ -178,22 +178,28 @@ gpg --list-secret-keys "${BOOTSTRAP_FLUX_KEY_NAME}"
 3. You will need the Fingerprints in the configuration section below. For example, in the above steps you will need `772154FFF783DE317KLCA0EC77149AC618D75581` and `AB675CE4CC64251G3S9AE1DAA88ARRTY2C009E2D`
 
 
-### :cloud:&nbsp; Global Cloudflare API Key
 
-In order to use `cert-manager` with the Cloudflare DNS challenge you will need to create a API key.
+### :cloud:&nbsp; Cloudflare API Token
 
-1. Head over to Cloudflare and create a API key by going [here](https://dash.cloudflare.com/profile/api-tokens).
+...Be aware you **will not** have a valid SSL cert until `cert-manager` is configured correctly
 
-2. Under the `API Keys` section, create a global API Key.
+In order to use `cert-manager` with the Cloudflare DNS challenge you will need to create a API token.
 
-3. Use the API Key in the configuration section below.
+1. Head over to Cloudflare and create a API token by going [here](https://dash.cloudflare.com/profile/api-tokens).
+2. Click the blue `Create Token` button
+3. Scroll down and create a Custom Token by choosing `Get started`
+4. Give your token a name like `cert-manager`
+5. Under `Permissions` give **read** access to `Zone` : `Zone` and **write** access to `Zone` : `DNS`
+6. Under `Zone Resources` set it to `Include` : `All Zones`
+7. Click `Continue to summary` and then `Create Token`
+8. Export this token and your Cloudflare email address to an environment variable on your system to be used in the following steps
 
 ```sh
+# For .config.env:
 # export BOOTSTRAP_CLOUDFLARE_DOMAIN="k8s-at-home.com"
 # export BOOTSTRAP_CLOUDFLARE_EMAIL="k8s-at-home@gmail.com"
 # export BOOTSTRAP_CLOUDFLARE_TOKEN="kpG6iyg3FS_du_8KRShdFuwfbwu3zMltbvmJV6cD"
 ```
-
 
 ### :page_facing_up:&nbsp; Configuration
 
