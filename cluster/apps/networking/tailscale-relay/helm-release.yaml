@@ -27,4 +27,4 @@ spec:
     - kind: Secret
       name: tailscale-token-secret
       valuesKey: tailscale-token
-      targetPath: config.authToken
+      targetPath: config.authKey
