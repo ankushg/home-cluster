@@ -2,7 +2,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: omada-redirect
-  namespace: network
+  namespace: home
   annotations:
     kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:
@@ -14,7 +14,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
   name: omada-headers
-  namespace: network
+  namespace: home
 spec:
   headers:
     customRequestHeaders:
