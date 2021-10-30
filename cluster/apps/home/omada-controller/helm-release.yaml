@@ -29,7 +29,7 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           hajimari.io/enable: "true"
-          hajimari.io/icon: "home-automation"
+          hajimari.io/icon: "router-wireless-settings"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
           - host: "omada.${SECRET_DOMAIN}"
@@ -40,10 +40,56 @@ spec:
           - hosts:
               - "omada.${SECRET_DOMAIN}"
             secretName: "omada-controller-tls"
-    persistence:
-      config:
+    service:
+      main:
         enabled: true
-        existingClaim: omada-controller-config
-        subPath: data
-    podAnnotations:
-      configmap.reloader.stakater.com/reload: "omada-controller-config"
+        annotations:
+          traefik.ingress.kubernetes.io/service.serversscheme: https
+      controller:
+        enabled: true
+        type: LoadBalancer
+        externalIPs:
+          - "${SVC_OMADA_ADDRESS}"
+        externalTrafficPolicy: Local
+        ports:
+          mgmt-8088-tcp:
+            enabled: true
+            port: 8088
+            protocol: TCP
+            targetPort: 8088
+          mgmt-8043-tcp:
+            enabled: true
+            port: 8043
+            protocol: TCP
+            targetPort: 8043
+          portal-8080-tcp:
+            enabled: true
+            port: 8080
+            protocol: TCP
+            targetPort: 8080
+          portal-8843-tcp:
+            enabled: true
+            port: 8843
+            protocol: TCP
+            targetPort: 8843
+    persistence:
+      data:
+        enabled: true
+        mountPath: /opt/tplink/EAPController/data
+        existingClaim: omada-data-pvc
+      work:
+        enabled: true
+        mountPath: /opt/tplink/EAPController/work
+        existingClaim: omada-work-pvc
+      logs:
+        enabled: true
+        mountPath: /opt/tplink/EAPController/logs
+        existingClaim: omada-logs-pvc
+      cert:
+        enabled: true
+        mountPath: /cert
+        type: custom
+        volumeSpec:
+          secret:
+            secretName: omada-controller-tls
+
