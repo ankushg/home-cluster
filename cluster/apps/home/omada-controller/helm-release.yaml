@@ -37,6 +37,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "router-wireless-settings"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: network-omada-redirect@kubernetescrd,network-omada-headers@kubernetescrd
         hosts:
           - host: "omada.${SECRET_DOMAIN}"
             paths:
@@ -68,11 +69,6 @@ spec:
             port: 8043
             protocol: TCP
             targetPort: 8043
-          portal-8080-tcp:
-            enabled: true
-            port: 8080
-            protocol: TCP
-            targetPort: 8080
           portal-8843-tcp:
             enabled: true
             port: 8843
@@ -99,3 +95,9 @@ spec:
           secret:
             secretName: omada-controller-tls
 
+    resources:
+      requests:
+        memory: 1200M
+        cpu: 1200m
+      limits:
+        memory: 1500M
