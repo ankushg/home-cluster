@@ -54,8 +54,9 @@ spec:
         default:
           - 1.1.1.1
           - 1.0.0.1
-          - 9.9.9.9
-          - 149.112.112.112
+          - tcp+udp:1.1.1.1
+          - tcp-tls:1.0.0.1:853
+          - https://cloudflare-dns.com/dns-query
       customDNS:
         mapping:
           ${SECRET_DOMAIN}: 10.43.62.28
