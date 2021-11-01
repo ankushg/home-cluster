@@ -56,7 +56,7 @@ spec:
         enabled: true
         type: LoadBalancer
         externalIPs:
-          - "${SVC_OMADA_ADDRESS}"
+          - "${SVC_OMADA_ADDR}"
         externalTrafficPolicy: Local
         ports:
           mgmt-8088-tcp:
