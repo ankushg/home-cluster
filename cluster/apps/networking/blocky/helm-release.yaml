@@ -64,6 +64,9 @@ spec:
           - 1.0.0.1
           - 9.9.9.9
           - 149.112.112.112
+      customDNS:
+        mapping:
+          ${SECRET_DOMAIN}: 10.43.62.28 # tailscale IP address for traefik
       prometheus:
         enable: true
         path: /metrics
