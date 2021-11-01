@@ -29,6 +29,8 @@ spec:
       TZ: "America/Los_Angeles"
     service:
       main:
+        annotations:
+          metallb.universe.tf/allow-shared-ip: blocky
         ports:
           http:
             port: 4000
