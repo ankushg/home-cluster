@@ -27,38 +27,6 @@ spec:
       replicas: 2
     env:
       TZ: "America/Los_Angeles"
-    service:
-      main:
-        annotations:
-          metallb.universe.tf/allow-shared-ip: blocky
-        ports:
-          http:
-            port: 4000
-      dns-tcp:
-        enabled: true
-        type: LoadBalancer
-        loadBalancerIP: "${SVC_BLOCKY_ADDR}"
-        annotations:
-          metallb.universe.tf/allow-shared-ip: blocky
-        ports:
-          dns-tcp:
-            enabled: true
-            port: 53
-            protocol: TCP
-            targetPort: 53
-      dns-udp:
-        enabled: true
-        type: LoadBalancer
-        loadBalancerIP: "${SVC_BLOCKY_ADDR}"
-        annotations:
-          metallb.universe.tf/allow-shared-ip: blocky
-        ports:
-          dns-udp:
-            enabled: true
-            port: 53
-            protocol: UDP
-            targetPort: 53
-        externalTrafficPolicy: Local
     config: |
       upstream:
         default:
