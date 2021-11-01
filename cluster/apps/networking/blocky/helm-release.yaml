@@ -29,12 +29,26 @@ spec:
       TZ: "America/Los_Angeles"
     service:
       main:
+        ports:
+          http:
+            port: 4000
+      dns:
+        enabled: true
         type: LoadBalancer
         externalIPs:
           - "${SVC_BLOCKY_ADDR}"
         ports:
-          http:
-            port: 4000
+          tcp:
+            enabled: true
+            port: 53
+            protocol: TCP
+            targetPort: 53
+          udp:
+            enabled: true
+            port: 53
+            protocol: UDP
+            targetPort: 53
+        externalTrafficPolicy: Local
     config: |
       upstream:
         default:
@@ -44,7 +58,7 @@ spec:
           - 149.112.112.112
       customDNS:
         mapping:
-          ${SECRET_DOMAIN}: 10.43.62.28 # tailscale IP address for traefik
+          ${SECRET_DOMAIN}: 10.43.62.28
       prometheus:
         enable: true
         path: /metrics
