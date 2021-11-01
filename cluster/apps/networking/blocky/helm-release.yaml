@@ -27,6 +27,14 @@ spec:
       replicas: 2
     env:
       TZ: "America/Los_Angeles"
+    service:
+      main:
+        type: LoadBalancer
+        externalIPs:
+          - "${SVC_BLOCKY_ADDR}"
+        ports:
+          http:
+            port: 4000
     config: |
       upstream:
         default:
