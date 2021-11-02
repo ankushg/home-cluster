@@ -23,7 +23,7 @@ spec:
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-production"
         hajimari.io/enable: "true"
-        hajimari.io/icon: "dashboard"
+        hajimari.io/icon: "chart-box"
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
       hosts:
         - "dashboard.${SECRET_DOMAIN}"
