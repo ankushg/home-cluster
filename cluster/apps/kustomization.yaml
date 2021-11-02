@@ -4,6 +4,6 @@ resources:
   - default
   - home
   - kube-system
-  - monitoring
+  - kubernetes-dashboard
   - networking
   - system-upgrade
