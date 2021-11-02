@@ -4,4 +4,5 @@ resources:
   - cert-manager.yaml
   - home.yaml
   - metallb-system.yaml
+  - monitoring.yaml
   - networking.yaml
