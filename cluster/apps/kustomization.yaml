@@ -4,5 +4,6 @@ resources:
   - default
   - home
   - kube-system
+  - monitoring
   - networking
   - system-upgrade
