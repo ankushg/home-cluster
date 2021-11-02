@@ -15,21 +15,21 @@ spec:
         name: kubernetes-dashboard-charts
         namespace: flux-system
       interval: 5m
-    values:
-      ingress:
-        enabled: true
-        className: "traefik"
-        annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
-          hajimari.io/enable: "true"
-          hajimari.io/icon: "dashboard"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-        hosts:
-          - host: "dashboard.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - hosts:
-              - "dashboard.${SECRET_DOMAIN}"
-            secretName: "kubernetes-dashboard-tls"
+  values:
+    ingress:
+      enabled: true
+      className: "traefik"
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-production"
+        hajimari.io/enable: "true"
+        hajimari.io/icon: "dashboard"
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+      hosts:
+        - host: "dashboard.${SECRET_DOMAIN}"
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - hosts:
+            - "dashboard.${SECRET_DOMAIN}"
+          secretName: "kubernetes-dashboard-tls"
