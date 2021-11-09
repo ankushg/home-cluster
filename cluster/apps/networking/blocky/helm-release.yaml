@@ -59,7 +59,7 @@ spec:
           - https://cloudflare-dns.com/dns-query
       customDNS:
         mapping:
-          ${SECRET_DOMAIN}: 10.43.62.28
+          ${SECRET_DOMAIN}: ${CLUSTER_TRAEFIK_ADDR}
       prometheus:
         enable: true
         path: /metrics
