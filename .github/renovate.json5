@@ -7,7 +7,6 @@
   "rebaseWhen": "conflicted",
   "extends": [
     "config:base",
-    "helpers:pinGitHubActionDigests",
     "schedule:weekends"
   ],
   "helm-values": {
