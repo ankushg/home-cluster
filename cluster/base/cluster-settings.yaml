@@ -5,7 +5,7 @@ metadata:
   name: cluster-settings
   namespace: flux-system
 data:
-  NODE_IP_RANGE: 192.168.86.200/30
+  LAN_IP_CIDR: 192.168.86.255/26
   METALLB_LB_RANGE: 192.168.86.220-192.168.86.230
   SVC_TRAEFIK_ADDR: 192.168.86.220
   SVC_OMADA_ADDR: 192.168.86.221
