@@ -28,6 +28,7 @@ spec:
       PORTAL_HTTPS_PORT: 8843
       SHOW_SERVER_LOGS: true
       SHOW_MONGODB_LOGS: true
+    hostNetwork: true
     ingress:
       main:
         enabled: true
