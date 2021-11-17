@@ -115,12 +115,12 @@ spec:
             port: 29813
             protocol: UDP
             targetPort: 29813
-          database-access-tcp:
+          db-access-tcp:
             enabled: true
             port: 27217
             protocol: TCP
             targetPort: 27217
-          database-access-udp:
+          db-access-udp:
             enabled: true
             port: 27217
             protocol: UDP
