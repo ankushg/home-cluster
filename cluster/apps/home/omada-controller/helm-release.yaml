@@ -59,6 +59,7 @@ spec:
           - "${SVC_OMADA_ADDR}"
         externalTrafficPolicy: Local
         ports:
+          # see https://community.tp-link.com/en/business/kb/detail/362
           mgmt-8088-tcp:
             enabled: true
             port: 8088
@@ -74,6 +75,56 @@ spec:
             port: 8843
             protocol: TCP
             targetPort: 8843
+          eap-29810-tcp:
+            enabled: true
+            port: 29810
+            protocol: TCP
+            targetPort: 29810
+          eap-29810-udp:
+            enabled: true
+            port: 29810
+            protocol: UDP
+            targetPort: 29810
+          eap-29811-tcp:
+            enabled: true
+            port: 29811
+            protocol: TCP
+            targetPort: 29811
+          eap-29811-udp:
+            enabled: true
+            port: 29811
+            protocol: UDP
+            targetPort: 29811
+          eap-29812-tcp:
+            enabled: true
+            port: 29812
+            protocol: TCP
+            targetPort: 29812
+          eap-29812-udp:
+            enabled: true
+            port: 29812
+            protocol: UDP
+            targetPort: 29812
+          eap-29813-tcp:
+            enabled: true
+            port: 29813
+            protocol: TCP
+            targetPort: 29813
+          eap-29813-udp:
+            enabled: true
+            port: 29813
+            protocol: UDP
+            targetPort: 29813
+          database-access-tcp:
+            enabled: true
+            port: 27217
+            protocol: TCP
+            targetPort: 27217
+          database-access-udp:
+            enabled: true
+            port: 27217
+            protocol: UDP
+            targetPort: 27217
     persistence:
       data:
         enabled: true
