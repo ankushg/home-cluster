@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: omada-exporter
-  namespace: network
+  namespace: monitoring
 spec:
   interval: 5m
   releaseName: omada-exporter
