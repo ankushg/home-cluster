@@ -23,7 +23,7 @@ spec:
     config:
       variables:
         TAILSCALE_ADVERTISE_ROUTES: "${CLUSTER_IP_RANGE},${LAN_IP_CIDR}"
-        TAILSCALE_FORCE_REAUTH: true
+        TAILSCALE_FORCE_REAUTH: "true"
     podAnnotations:
       reloader.stakater.com/auto: "true"
   valuesFrom:
