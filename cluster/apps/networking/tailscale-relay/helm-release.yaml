@@ -20,13 +20,9 @@ spec:
     image:
       repository: docker.io/mvisonneau/tailscale
       tag: "v1.16.0"
-    env:
-      HOSTNAME: tailscale-relay
     config:
       variables:
-        TAILSCALE_ADVERTISE_ROUTES: "${CLUSTER_IP_RANGE},${LAN_IP_CIDR}"
-    podAnnotations:
-      reloader.stakater.com/auto: "true"
+        TAILSCALE_ADVERTISE_ROUTES: "${CLUSTER_IP_RANGE},${NODE_IP_RANGE}"
   valuesFrom:
     - kind: Secret
       name: tailscale-token-secret
