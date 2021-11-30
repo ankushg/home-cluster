@@ -47,6 +47,9 @@ spec:
         subPath: data
     podAnnotations:
       configmap.reloader.stakater.com/reload: "home-assistant-config-v1"
+    hostNetwork: true
+    securityContext:
+      dnsPolicy: ClusterFirstWithHostNet
     addons:
       codeserver:
         enabled: true
