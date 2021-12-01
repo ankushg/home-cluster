@@ -50,6 +50,7 @@ spec:
     hostNetwork: true
     securityContext:
       dnsPolicy: ClusterFirstWithHostNet
+      privileged: true
     addons:
       codeserver:
         enabled: true
