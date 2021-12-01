@@ -48,8 +48,8 @@ spec:
     podAnnotations:
       configmap.reloader.stakater.com/reload: "home-assistant-config-v1"
     hostNetwork: true
+    dnsPolicy: ClusterFirstWithHostNet
     securityContext:
-      dnsPolicy: ClusterFirstWithHostNet
       privileged: true
     addons:
       codeserver:
