@@ -3,7 +3,7 @@
 ## GitOps + k8s Homelab
 > This repo contains the code I use for deploying and managing my homelab.
 
-[![k3s](https://img.shields.io/badge/k3s-v1.21.0-orange?style=flat-square)](https://k3s.io/)
+[![k3s](https://img.shields.io/badge/k3s-v1.22.5-orange?style=flat-square)](https://k3s.io/)
 [![GitHub issues](https://img.shields.io/github/issues/ankushg/home-cluster?style=flat-square)](https://github.com/ankushg/home-cluster/issues)
 [![GitHub last commit](https://img.shields.io/github/last-commit/ankushg/home-cluster?color=purple&style=flat-square)](https://github.com/ankushg/home-cluster/commits/master)
 
@@ -11,7 +11,7 @@
 
 This is a _highly_ (but not necessarily _intelligently_) opinionated deployment of a single [k3s](https://k3s.io/) cluster, that is:
 
-- deployed by [k3sup](https://github.com/alexellis/k3sup) 
+- deployed by [k3sup](https://github.com/alexellis/k3sup)
 - backed by the [GitOps](https://www.weave.works/blog/what-is-gitops-really) tool [Flux](https://toolkit.fluxcd.io/)
 - secured with help of the [Flux SOPS integration](https://toolkit.fluxcd.io/guides/mozilla-sops/),
 - accessed through [traefik](https://traefik.io)
