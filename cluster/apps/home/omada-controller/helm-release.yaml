@@ -56,8 +56,7 @@ spec:
       controller:
         enabled: true
         type: LoadBalancer
-        externalIPs:
-          - "${SVC_OMADA_ADDR}"
+        loadBalancerIP: "${SVC_OMADA_ADDR}"
         externalTrafficPolicy: Local
         ports:
           # see https://www.tp-link.com/us/support/faq/3265/
