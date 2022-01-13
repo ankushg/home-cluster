@@ -83,7 +83,7 @@ It is advisable to install [pre-commit](https://pre-commit.com/) and the pre-com
 After pre-commit is installed on your machine run:
 
 ```sh
-pre-commit install-hooks
+pre-commit install --install-hooks
 ```
 
 ## :open_file_folder:&nbsp; Repository structure
