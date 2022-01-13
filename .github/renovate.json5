@@ -104,23 +104,23 @@
     // group version bumps when we have multiple at the same time (e.g., helm charts and container images)
     {
       "groupName": "omada-controller",
-      "matchPackagePatterns": [".*omada-controller.*"]
+      "matchPackagePatterns": ["omada-controller"]
     },
     {
       "groupName": "tailscale-relay",
-      "matchPackagePatterns": [".*tailscale.*"]
+      "matchPackagePatterns": ["tailscale"]
     },
     {
       "groupName": "home-assistant",
-      "matchPackagePatterns": [".*home-assistant.*"]
+      "matchPackagePatterns": ["home-assistant"]
     },
     {
       "groupName": "blocky",
-      "matchPackagePatterns": [".*blocky.*"]
+      "matchPackagePatterns": ["blocky"]
     },
     {
       "groupName": "hajimari",
-      "matchPackagePatterns": [".*hajimari.*"]
+      "matchPackagePatterns": ["hajimari"]
     }
   ]
 }
