@@ -100,6 +100,27 @@
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["patch"],
       "labels": ["renovate/helm", "dep/patch"]
+    },
+    // group version bumps when we have multiple at the same time (e.g., helm charts and container images)
+    {
+      "groupName": "omada-controller",
+      "matchPackagePatterns": ["*omada-controller*"]
+    },
+    {
+      "groupName": "tailscale-relay",
+      "matchPackagePatterns": ["*tailscale*"]
+    },
+    {
+      "groupName": "home-assistant",
+      "matchPackagePatterns": ["*home-assistant*"]
+    },
+    {
+      "groupName": "blocky",
+      "matchPackagePatterns": ["*blocky*"]
+    },
+    {
+      "groupName": "hajimari",
+      "matchPackagePatterns": ["*hajimari*"]
     }
   ]
 }
