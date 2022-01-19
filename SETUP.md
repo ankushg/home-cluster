@@ -69,7 +69,8 @@ sysctl --system
 | [GnuPG](https://gnupg.org/)                                        | Encrypts and signs your data                                        |
 | [pinentry](https://gnupg.org/related_software/pinentry/index.html) | Allows GnuPG to read passphrases and PIN numbers                    |
 | [direnv](https://github.com/direnv/direnv)                         | Exports env vars based on present working directory                 |
-| [pre-commit](https://github.com/pre-commit/pre-commit)             | Runs checks pre `git commit`                                     |
+| [pre-commit](https://github.com/pre-commit/pre-commit)             | Runs checks pre `git commit`                                        |
+| [gitleaks](https://github.com/zricethezav/gitleaks)                | Scan git repos (or files) for secrets                               |
 | [kustomize](https://kustomize.io/)                                 | Template-free way to customize application configuration            |
 | [helm](https://helm.sh/)                                           | Manage Kubernetes applications                                      |
 | [go-task](https://github.com/go-task/task)                         | A task runner / simpler Make alternative written in Go              |
@@ -78,7 +79,7 @@ sysctl --system
 ### :warning:&nbsp; pre-commit
 
 It is advisable to install [pre-commit](https://pre-commit.com/) and the pre-commit hooks that come with this repository.
-[sops-pre-commit](https://github.com/k8s-at-home/sops-pre-commit) will check to make sure you are not by accident commiting your secrets un-encrypted.
+[sops-pre-commit](https://github.com/k8s-at-home/sops-pre-commit) and [gitleaks](https://github.com/zricethezav/gitleaks) will check to make sure you are not by accident commiting your secrets un-encrypted.
 
 After pre-commit is installed on your machine run:
 
