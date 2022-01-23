@@ -5,6 +5,7 @@ metadata:
   name: cloudflared
   namespace: networking
 spec:
+  replicaCount: 1
   interval: 5m
   chart:
     spec:
