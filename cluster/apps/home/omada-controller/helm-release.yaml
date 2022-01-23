@@ -39,13 +39,13 @@ spec:
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: home-omada-redirect@kubernetescrd,home-omada-headers@kubernetescrd
         hosts:
-          - host: "omada.${SECRET_DOMAIN}"
+          - host: "omada-${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - "omada.${SECRET_DOMAIN}"
+              - "omada-${SECRET_DOMAIN}"
             secretName: "omada-controller-tls"
     service:
       main:

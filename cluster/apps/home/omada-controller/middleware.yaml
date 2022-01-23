@@ -18,6 +18,6 @@ metadata:
 spec:
   headers:
     customRequestHeaders:
-      Host: "omada.${SECRET_DOMAIN}:8043"
+      Host: "omada-${SECRET_DOMAIN}:8043"
     customResponseHeaders:
-      Host: "omada.${SECRET_DOMAIN}"
+      Host: "omada-${SECRET_DOMAIN}"
