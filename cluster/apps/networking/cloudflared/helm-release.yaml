@@ -26,8 +26,8 @@ spec:
     config:
       tunnel: homelab-tunnel
       ingress:
-        - hostname: '*.${SECRET_DOMAIN}'
-          service: traefik.networking.svc.cluster.local
+        - hostname: "*.${SECRET_DOMAIN}"
+          service: "${SVC_TRAEFIK_ADDR}"
           originRequest:
             noTLSVerify: true
         - service: http_status:404
