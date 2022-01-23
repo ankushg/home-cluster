@@ -30,8 +30,8 @@ spec:
           service: "https://${SVC_TRAEFIK_ADDR}"
           originRequest:
             noTLSVerify: true
-        # - hostname: "*.${SECRET_DOMAIN}"
-        #   service: "https://${SVC_TRAEFIK_ADDR}"
-        #   originRequest:
-        #     noTLSVerify: true
+        - hostname: "*.${SECRET_DOMAIN}"
+          service: "https://${SVC_TRAEFIK_ADDR}"
+          originRequest:
+            noTLSVerify: true
         - service: http_status:404
