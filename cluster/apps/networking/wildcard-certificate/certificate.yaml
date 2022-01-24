@@ -14,3 +14,4 @@ spec:
     - "${SECRET_DOMAIN}"
     - "*.${SECRET_DOMAIN}"
     - "*-${SECRET_DOMAIN}"
+    - "traefik.networking.svc.cluster.local"
