@@ -24,7 +24,7 @@ spec:
     credentials:
       existingSecret: cloudflared-credentials
     config:
-      tunnel: homelab-tunnel
+      tunnel: tunnel
       ingress:
         - hostname: "*.${SECRET_DOMAIN}"
           service: "https://traefik.networking.svc.cluster.local"
