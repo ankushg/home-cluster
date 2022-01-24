@@ -28,6 +28,10 @@ spec:
       ingress:
         - hostname: "test.${SECRET_DOMAIN}"
           service: hello_world
+          originRequest:
+            noTLSVerify: true
         - hostname: "*.${SECRET_DOMAIN}"
           service: "https://traefik.networking.svc.cluster.local"
+          originRequest:
+            noTLSVerify: true
         - service: http_status:404
