@@ -30,5 +30,4 @@ spec:
           service: "https://traefik.networking.svc.cluster.local"
           originRequest:
             noTLSVerify: true
-            originServerName: ${SECRET_DOMAIN}
         - service: http_status:404
