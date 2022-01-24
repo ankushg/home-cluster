@@ -26,11 +26,6 @@ spec:
     config:
       tunnel: homelab-tunnel
       ingress:
-        - hostname: "*-${SECRET_DOMAIN}"
-          service: "https://${SVC_TRAEFIK_ADDR}"
-          originRequest:
-            noTLSVerify: true
-            originServerName: ${SECRET_DOMAIN}
         - hostname: "*.${SECRET_DOMAIN}"
           service: "https://${SVC_TRAEFIK_ADDR}"
           originRequest:

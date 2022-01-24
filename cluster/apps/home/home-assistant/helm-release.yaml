@@ -32,13 +32,13 @@ spec:
           hajimari.io/icon: "home-automation"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
-          - host: "hass-${SECRET_DOMAIN}"
+          - host: "hass.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - "hass-${SECRET_DOMAIN}"
+              - "hass.${SECRET_DOMAIN}"
             secretName: "home-assistant-tls"
     persistence:
       config:
@@ -74,13 +74,13 @@ spec:
             hajimari.io/icon: "home-automation"
             traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           hosts:
-            - host: "hass-config-${SECRET_DOMAIN}"
+            - host: "hass-config.${SECRET_DOMAIN}"
               paths:
                 - path: /
                   pathType: Prefix
           tls:
             - hosts:
-                - "hass-config-${SECRET_DOMAIN}"
+                - "hass-config.${SECRET_DOMAIN}"
               secretName: "home-assistant-config-tls"
         volumeMounts:
           - name: config

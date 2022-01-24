@@ -26,8 +26,8 @@ spec:
         hajimari.io/icon: "chart-box"
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
       hosts:
-        - "dashboard-${SECRET_DOMAIN}"
+        - "dashboard.${SECRET_DOMAIN}"
       tls:
         - hosts:
-            - "dashboard-${SECRET_DOMAIN}"
+            - "dashboard.${SECRET_DOMAIN}"
           secretName: "kubernetes-dashboard-tls"
