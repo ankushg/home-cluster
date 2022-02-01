@@ -8,7 +8,6 @@ spec:
   interval: 5m
   chart:
     spec:
-      # renovate: registryUrl=https://khuedoan.github.io/charts
       chart: cloudflared
       version: 0.3.3
       sourceRef:
