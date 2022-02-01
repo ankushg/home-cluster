@@ -6,6 +6,7 @@
 [![k3s](https://img.shields.io/badge/k3s-v1.22.5-orange?style=flat-square)](https://k3s.io/)
 [![GitHub issues](https://img.shields.io/github/issues/ankushg/home-cluster?style=flat-square)](https://github.com/ankushg/home-cluster/issues)
 [![GitHub last commit](https://img.shields.io/github/last-commit/ankushg/home-cluster?color=purple&style=flat-square)](https://github.com/ankushg/home-cluster/commits/master)
+[![GitHub Super-Linter](https://github.com/ankushg/home-cluster/workflows/Lint/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
 <br/>
 
