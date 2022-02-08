@@ -13,7 +13,7 @@ The purpose here is to showcase how you can deploy an entire Kubernetes cluster 
 - [Post installation](#mega-post-installation)
 - [Thanks](#handshake-thanks)
 
-## :wave:&nbsp; Introduction
+## 👋 Introduction
 
 The following components will be installed in your [k3s](https://k3s.io/) cluster by default. They are only included to get a minimum viable cluster up and running. You are free to add / remove components to your liking but anything outside the scope of the below components are not supported by this template.
 
@@ -29,9 +29,9 @@ Feel free to read up on any of these technologies before you get started to be m
 - [system-upgrade-controller](https://github.com/rancher/system-upgrade-controller) - upgrade k3s
 - [reloader](https://github.com/stakater/Reloader) - restart pod when configmap or secret changes
 
-## :memo:&nbsp; Prerequisites
+## 📝 Prerequisites
 
-### :computer:&nbsp; Nodes
+### 💻 Nodes
 
 Already provisioned Bare metal or VMs with any modern operating system like Ubuntu, Debian or CentOS.
 
@@ -56,9 +56,9 @@ sysctl --system
 
 - Disable swap
 
-### :wrench:&nbsp; Tools
+### 🔧 Tools
 
-:round_pushpin: You should install the below CLI tools on your workstation. Make sure you pull in the latest versions.
+📍 You should install the below CLI tools on your workstation. Make sure you pull in the latest versions.
 
 | Tool                                                               | Purpose                                                             |
 |--------------------------------------------------------------------|---------------------------------------------------------------------|
@@ -76,7 +76,7 @@ sysctl --system
 | [go-task](https://github.com/go-task/task)                         | A task runner / simpler Make alternative written in Go              |
 | [prettier](https://github.com/prettier/prettier)                   | Prettier is an opinionated code formatter.                          |
 
-### :warning:&nbsp; pre-commit
+### ⚠️ pre-commit
 
 It is advisable to install [pre-commit](https://pre-commit.com/) and the pre-commit hooks that come with this repository.
 [sops-pre-commit](https://github.com/k8s-at-home/sops-pre-commit) and [gitleaks](https://github.com/zricethezav/gitleaks) will check to make sure you are not by accident commiting your secrets un-encrypted.
@@ -87,7 +87,7 @@ After pre-commit is installed on your machine run:
 pre-commit install --install-hooks
 ```
 
-## :open_file_folder:&nbsp; Repository structure
+## 📂 Repository structure
 
 The Git repository contains the following directories under `cluster` and are ordered below by how Flux will apply them.
 
@@ -113,17 +113,17 @@ cluster
     └── cert-manager
 ```
 
-## :rocket:&nbsp; Lets go!
+## 🚀 Lets go!
 
 Very first step will be to create a new repository by clicking the **Use this template** button on this page.
 
-:round_pushpin: In these instructions you will be exporting several environment variables to your current shell env. Make sure you stay with in your current shell to not lose any exported variables.
+📍 In these instructions you will be exporting several environment variables to your current shell env. Make sure you stay with in your current shell to not lose any exported variables.
 
-:round_pushpin: **All of the below commands** are run on your **local** workstation, **not** on any of your cluster nodes.
+📍 **All of the below commands** are run on your **local** workstation, **not** on any of your cluster nodes.
 
-### :closed_lock_with_key:&nbsp; Setting up GnuPG keys
+### 🔐 Setting up GnuPG keys
 
-:round_pushpin: Here we will create a personal and a Flux GPG key. Using SOPS with GnuPG allows us to encrypt and decrypt secrets.
+📍 Here we will create a personal and a Flux GPG key. Using SOPS with GnuPG allows us to encrypt and decrypt secrets.
 
 1. Create a Personal GPG Key, password protected, and export the fingerprint. It's **strongly encouraged** to back up this key somewhere safe so you don't lose it.
 
@@ -180,7 +180,7 @@ gpg --list-secret-keys "${BOOTSTRAP_FLUX_KEY_NAME}"
 
 
 
-### :cloud:&nbsp; Cloudflare API Token
+### ☁️ Cloudflare API Token
 
 ...Be aware you **will not** have a valid SSL cert until `cert-manager` is configured correctly
 
@@ -202,9 +202,9 @@ In order to use `cert-manager` with the Cloudflare DNS challenge you will need t
 # export BOOTSTRAP_CLOUDFLARE_TOKEN="kpG6iyg3FS_du_8KRShdFuwfbwu3zMltbvmJV6cD"
 ```
 
-### :page_facing_up:&nbsp; Configuration
+### 📄 Configuration
 
-:round_pushpin: The `.config.env` file contains necessary configuration files that are needed to set thing up.
+📍 The `.config.env` file contains necessary configuration files that are needed to set thing up.
 
 1. Copy the `.config.sample.env` to `.config.env` and start filling out all the environment variables based on the steps above.
 
@@ -214,7 +214,7 @@ In order to use `cert-manager` with the Cloudflare DNS challenge you will need t
 
 4. If you do not encounter any errors run `./configure.sh` to start having the script wire up the templated files and place them where they need to be.
 
-:round_pushpin: Variables defined in `cluster-secrets.sops.yaml` and `cluster-settings.sops.yaml` will be usable anywhere in your YAML manifests under `./cluster`
+📍 Variables defined in `cluster-secrets.sops.yaml` and `cluster-settings.sops.yaml` will be usable anywhere in your YAML manifests under `./cluster`
 
 5. **Verify** all the above files have the correct information present, and no secrets are committed to your repo.
 
@@ -228,9 +228,9 @@ git commit -m "initial commit"
 git push
 ```
 
-### :sailboat:&nbsp; Installing k3s with k3sup
+### ⛵ Installing k3s with k3sup
 
-:round_pushpin: Here we will be install [k3s](https://k3s.io/) with [k3sup](https://github.com/alexellis/k3sup). After completion, k3sup will drop a `kubeconfig` in your present working directory for use with interacting with your cluster with `kubectl`.
+📍 Here we will be install [k3s](https://k3s.io/) with [k3sup](https://github.com/alexellis/k3sup). After completion, k3sup will drop a `kubeconfig` in your present working directory for use with interacting with your cluster with `kubectl`.
 
 1. Ensure you are able to SSH into you nodes with using your private ssh key. This is how k3sup is able to connect to your remote node.
 
@@ -264,9 +264,9 @@ kubectl --kubeconfig=./kubeconfig get nodes
 # k8s-worker-a   Ready    worker                    4d20h   v1.22.5+k3s1
 ```
 
-### :small_blue_diamond:&nbsp; GitOps with Flux
+### 🔹 GitOps with Flux
 
-:round_pushpin: Here we will be installing [flux](https://toolkit.fluxcd.io/) after some quick bootstrap steps.
+📍 Here we will be installing [flux](https://toolkit.fluxcd.io/) after some quick bootstrap steps.
 
 1. Verify Flux can be installed
 
@@ -295,7 +295,7 @@ kubectl --kubeconfig=./kubeconfig create secret generic sops-gpg \
 
 4. Install Flux
 
-:round_pushpin: Due to race conditions with the Flux CRDs you will have to run the below command twice. There should be no errors on this second run.
+📍 Due to race conditions with the Flux CRDs you will have to run the below command twice. There should be no errors on this second run.
 
 ```sh
 kubectl --kubeconfig=./kubeconfig apply --kustomize=./cluster/base/flux-system
@@ -322,9 +322,9 @@ kubectl --kubeconfig=./kubeconfig get pods -n flux-system
 ```
 
 
-:tada: **Congratulations** you have a Kubernetes cluster managed by Flux, your Git repository is driving the state of your cluster.
+🎉 **Congratulations** you have a Kubernetes cluster managed by Flux, your Git repository is driving the state of your cluster.
 
-## :mega:&nbsp; Post installation
+## 📣 Post installation
 
 ### Verify ingress
 
@@ -349,7 +349,7 @@ When this is done you no longer have to use `--kubeconfig=./kubeconfig` in your 
 [VSCode SOPS](https://marketplace.visualstudio.com/items?itemName=signageos.signageos-vscode-sops) is a neat little plugin for those using VSCode.
 It will automatically decrypt you SOPS secrets when you click on the file in the editor and encrypt them when you save  and exit the file.
 
-### :point_right:&nbsp; Debugging
+### 👉 Debugging
 
 Manually sync Flux with your Git repository
 
@@ -405,23 +405,18 @@ flux --kubeconfig=./kubeconfig get sources helm -A
 
 Flux has a wide range of CLI options available be sure to run `flux --help` to view more!
 
-### :robot:&nbsp; Automation
+### 🤖 Automation
 
 - [Renovate](https://www.whitesourcesoftware.com/free-developer-tools/renovate) is a very useful tool that when configured will start to create PRs in your Github repository when Docker images, Helm charts or anything else that can be tracked has a newer version. The configuration for renovate is located [here](./.github/renovate.json5).
 
 - [system-upgrade-controller](https://github.com/rancher/system-upgrade-controller) will watch for new k3s releases and upgrade your nodes when new releases are found.
 
-There's also a couple Github workflows included in this repository that will help automate some processes.
-
-- [Flux upgrade schedule](./.github/workflows/flux-schedule.yaml) - workflow to upgrade Flux.
-- [Renovate schedule](./.github/workflows/renovate-schedule.yaml) - workflow to annotate `HelmRelease`'s which allows [Renovate](https://www.whitesourcesoftware.com/free-developer-tools/renovate) to track Helm chart versions.
-
-## :grey_question:&nbsp; What's next
+## ❔ What's next
 
 The world is your cluster, try installing another application or if you have a NAS and want storage back by that check out the helm charts for [democratic-csi](https://github.com/democratic-csi/democratic-csi), [csi-driver-nfs](https://github.com/kubernetes-csi/csi-driver-nfs) or [nfs-subdir-external-provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner).
 
 If you plan on exposing your ingress to the world from your home. Checkout [our rough guide](https://docs.k8s-at-home.com/guides/dyndns/) to run a k8s `CronJob` to update DDNS.
 
-## :handshake:&nbsp; Thanks
+## 🤝 Thanks
 
 Big shout out to all the authors and contributors to the projects that we are using in this repository.
