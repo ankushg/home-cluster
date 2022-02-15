@@ -260,8 +260,8 @@ k3sup join \
 ```sh
 kubectl --kubeconfig=./kubeconfig get nodes
 # NAME           STATUS   ROLES                       AGE     VERSION
-# k8s-master-a   Ready    control-plane,master      4d20h   v1.22.5+k3s1
-# k8s-worker-a   Ready    worker                    4d20h   v1.22.5+k3s1
+# k8s-master-a   Ready    control-plane,master      4d20h   vv1.23.3+k3s1
+# k8s-worker-a   Ready    worker                    4d20h   vv1.23.3+k3s1
 ```
 
 ### 🔹 GitOps with Flux
@@ -273,8 +273,8 @@ kubectl --kubeconfig=./kubeconfig get nodes
 ```sh
 flux --kubeconfig=./kubeconfig check --pre
 # ► checking prerequisites
-# ✔ kubectl 1.22.5 >=1.18.0-0
-# ✔ Kubernetes 1.22.5+k3s1 >=1.16.0-0
+# ✔ kubectl v1.23.3 >=1.18.0-0
+# ✔ Kubernetes v1.23.3+k3s1 >=1.16.0-0
 # ✔ prerequisites checks passed
 ```
 
