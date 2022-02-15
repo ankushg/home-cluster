@@ -6,12 +6,12 @@ The purpose here is to showcase how you can deploy an entire Kubernetes cluster 
 
 ## Overview
 
-- [Introduction](#wave-introduction)
-- [Prerequisites](#memo-prerequisites)
-- [Repository structure](#open_file_folder-repository-structure)
-- [Lets go!](#rocket-lets-go)
-- [Post installation](#mega-post-installation)
-- [Thanks](#handshake-thanks)
+- [Introduction](#-introduction)
+- [Prerequisites](#-prerequisites)
+- [Repository structure](#-repository-structure)
+- [Lets go!](#-lets-go)
+- [Post installation](#-post-installation)
+- [Thanks](#-thanks)
 
 ## 👋 Introduction
 
