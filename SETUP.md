@@ -413,9 +413,9 @@ Flux has a wide range of CLI options available be sure to run `flux --help` to v
 
 ## ❔ What's next
 
-The world is your cluster, try installing another application or if you have a NAS and want storage back by that check out the helm charts for [democratic-csi](https://github.com/democratic-csi/democratic-csi), [csi-driver-nfs](https://github.com/kubernetes-csi/csi-driver-nfs) or [nfs-subdir-external-provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner).
+The world is your cluster, first thing you might want to do is to have storage backed by something other than local disk. If you have some sort of NAS and want storage back by that check out the helm charts for [nfs-subdir-external-provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner), [democratic-csi](https://github.com/democratic-csi/democratic-csi), or [csi-driver-nfs](https://github.com/kubernetes-csi/csi-driver-nfs).
 
-If you plan on exposing your ingress to the world from your home. Checkout [our rough guide](https://docs.k8s-at-home.com/guides/dyndns/) to run a k8s `CronJob` to update DDNS.
+Many people have shared their awesome repositories over at [awesome-home-kubernetes](https://github.com/k8s-at-home/awesome-home-kubernetes), be sure to check this out and click the `Search All Repos` icon if you are wondering how someone implemented or deployed an application.
 
 ## 🤝 Thanks
 
