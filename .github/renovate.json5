@@ -33,6 +33,9 @@
       "cluster/.+\\.ya?ml$"
     ],
   },
+  "pre-commit": {
+    "enabled": true
+  }
   "regexManagers": [
     // regexManager to read and process HelmRelease files
     {
