@@ -21,6 +21,10 @@ spec:
       tag: 2022.2.6
     env:
       TZ: "America/Los_Angeles"
+    envFrom:
+      - secretRef:
+          name: home-assistant-secrets
+
     ingress:
       main:
         enabled: true
@@ -46,6 +50,7 @@ spec:
         subPath: data
     podAnnotations:
       configmap.reloader.stakater.com/reload: "home-assistant-config-v1"
+      secret.reloader.stakater.com/reload: "home-assistant-secrets"
     hostNetwork: true
     dnsPolicy: ClusterFirstWithHostNet
     securityContext:
