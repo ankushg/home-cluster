@@ -3,8 +3,6 @@ kind: Middleware
 metadata:
   name: omada-redirect
   namespace: home
-  annotations:
-    kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:
   redirectRegex:
     regex: "https://([^/]+)/?$"
