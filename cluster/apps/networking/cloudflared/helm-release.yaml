@@ -26,7 +26,7 @@ spec:
     replicaCount: 1
     image:
       repository: docker.io/raspbernetes/cloudflared
-      tag: "2022.3.0"
+      tag: "2022.3.1"
     credentials:
       existingSecret: cloudflared-credentials
     config:
