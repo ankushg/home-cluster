@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: home-assistant
-      version: 12.0.1
+      version: 12.1.0
       sourceRef:
         kind: HelmRepository
         name: k8s-at-home-charts
@@ -25,7 +25,7 @@ spec:
   values:
     image:
       repository: ghcr.io/home-assistant/home-assistant
-      tag: 2022.3.2
+      tag: 2022.3.3
     env:
       TZ: "America/Los_Angeles"
     envFrom:
