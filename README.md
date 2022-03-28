@@ -1,6 +1,7 @@
 <img src="https://camo.githubusercontent.com/5b298bf6b0596795602bd771c5bddbb963e83e0f/68747470733a2f2f692e696d6775722e636f6d2f7031527a586a512e706e67" align="left" width="144px" height="144px"/>
 
 ## GitOps + k8s Homelab
+
 > This repo contains the code I use for deploying and managing my homelab.
 
 [![k3s](https://img.shields.io/badge/k3s-v1.23.3-orange?style=flat-square)](https://k3s.io/)
@@ -8,7 +9,7 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/ankushg/home-cluster?color=purple&style=flat-square)](https://github.com/ankushg/home-cluster/commits/master)
 [![GitHub Super-Linter](https://github.com/ankushg/home-cluster/workflows/Lint/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
-<br/>
+---
 
 This is a _highly_ (but not necessarily _intelligently_) opinionated deployment of a single [k3s](https://k3s.io/) cluster, that is:
 
@@ -17,7 +18,7 @@ This is a _highly_ (but not necessarily _intelligently_) opinionated deployment 
 - secured with help of the [Flux SOPS integration](https://toolkit.fluxcd.io/guides/mozilla-sops/),
 - accessed through [traefik](https://traefik.io)
 
-## :bow:&nbsp; Thanks
+## 🙇 Thanks
 
 Big shout out to all of the contributors to the projects that I'm using in this repository.
 

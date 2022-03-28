@@ -96,7 +96,7 @@ The Git repository contains the following directories under `cluster` and are or
 - **core** directory (depends on **crds**) are important infrastructure applications (grouped by namespace) that should never be pruned by Flux
 - **apps** directory (depends on **core**) is where your common applications (grouped by namespace) could be placed, Flux will prune resources here if they are not tracked by Git anymore
 
-```
+```sh
 cluster
 ├── apps
 │   ├── default
@@ -113,7 +113,7 @@ cluster
     └── cert-manager
 ```
 
-## 🚀 Lets go!
+## 🚀 Lets go
 
 Very first step will be to create a new repository by clicking the **Use this template** button on this page.
 
@@ -127,58 +127,56 @@ Very first step will be to create a new repository by clicking the **Use this te
 
 1. Create a Personal GPG Key, password protected, and export the fingerprint. It's **strongly encouraged** to back up this key somewhere safe so you don't lose it.
 
-```sh
-export GPG_TTY=$(tty)
-export BOOTSTRAP_PERSONAL_KEY_NAME="First name Last name (location) <email>"
+    ```sh
+    export GPG_TTY=$(tty)
+    export BOOTSTRAP_PERSONAL_KEY_NAME="First name Last name (location) <email>"
 
-gpg --batch --full-generate-key <<EOF
-Key-Type: 1
-Key-Length: 4096
-Subkey-Type: 1
-Subkey-Length: 4096
-Expire-Date: 0
-Name-Real: ${BOOTSTRAP_PERSONAL_KEY_NAME}
-EOF
+    gpg --batch --full-generate-key <<EOF
+    Key-Type: 1
+    Key-Length: 4096
+    Subkey-Type: 1
+    Subkey-Length: 4096
+    Expire-Date: 0
+    Name-Real: ${BOOTSTRAP_PERSONAL_KEY_NAME}
+    EOF
 
-gpg --list-secret-keys "${BOOTSTRAP_PERSONAL_KEY_NAME}"
-# pub   rsa4096 2021-03-11 [SC]
-#       772154FFF783DE317KLCA0EC77149AC618D75581
-# uid           [ultimate] k8s@home (Macbook) <k8s-at-home@gmail.com>
-# sub   rsa4096 2021-03-11 [E]
+    gpg --list-secret-keys "${BOOTSTRAP_PERSONAL_KEY_NAME}"
+    # pub   rsa4096 2021-03-11 [SC]
+    #       772154FFF783DE317KLCA0EC77149AC618D75581
+    # uid           [ultimate] k8s@home (Macbook) <k8s-at-home@gmail.com>
+    # sub   rsa4096 2021-03-11 [E]
 
-# Add to .config.env:
-# export BOOTSTRAP_PERSONAL_KEY_FP=772154FFF783DE317KLCA0EC77149AC618D75581
-```
+    # Add to .config.env:
+    # export BOOTSTRAP_PERSONAL_KEY_FP=772154FFF783DE317KLCA0EC77149AC618D75581
+    ```
 
 2. Create a Flux GPG Key and export the fingerprint
 
-```sh
-export GPG_TTY=$(tty)
-export BOOTSTRAP_FLUX_KEY_NAME="Cluster name (Flux) <email>"
+    ```sh
+    export GPG_TTY=$(tty)
+    export BOOTSTRAP_FLUX_KEY_NAME="Cluster name (Flux) <email>"
 
-gpg --batch --full-generate-key <<EOF
-%no-protection
-Key-Type: 1
-Key-Length: 4096
-Subkey-Type: 1
-Subkey-Length: 4096
-Expire-Date: 0
-Name-Real: ${FLUX_KEY_NAME}
-EOF
+    gpg --batch --full-generate-key <<EOF
+    %no-protection
+    Key-Type: 1
+    Key-Length: 4096
+    Subkey-Type: 1
+    Subkey-Length: 4096
+    Expire-Date: 0
+    Name-Real: ${FLUX_KEY_NAME}
+    EOF
 
-gpg --list-secret-keys "${BOOTSTRAP_FLUX_KEY_NAME}"
-# pub   rsa4096 2021-03-11 [SC]
-#       AB675CE4CC64251G3S9AE1DAA88ARRTY2C009E2D
-# uid           [ultimate] Home cluster (Flux) <k8s-at-home@gmail.com>
-# sub   rsa4096 2021-03-11 [E]
+    gpg --list-secret-keys "${BOOTSTRAP_FLUX_KEY_NAME}"
+    # pub   rsa4096 2021-03-11 [SC]
+    #       AB675CE4CC64251G3S9AE1DAA88ARRTY2C009E2D
+    # uid           [ultimate] Home cluster (Flux) <k8s-at-home@gmail.com>
+    # sub   rsa4096 2021-03-11 [E]
 
-# Add to .config.env:
-# export BOOTSTRAP_FLUX_KEY_FP=AB675CE4CC64251G3S9AE1DAA88ARRTY2C009E2D
-```
+    # Add to .config.env:
+    # export BOOTSTRAP_FLUX_KEY_FP=AB675CE4CC64251G3S9AE1DAA88ARRTY2C009E2D
+    ```
 
 3. You will need the Fingerprints in the configuration section below. For example, in the above steps you will need `772154FFF783DE317KLCA0EC77149AC618D75581` and `AB675CE4CC64251G3S9AE1DAA88ARRTY2C009E2D`
-
-
 
 ### ☁️ Cloudflare API Token
 
@@ -214,19 +212,19 @@ In order to use `cert-manager` with the Cloudflare DNS challenge you will need t
 
 4. If you do not encounter any errors run `./configure.sh` to start having the script wire up the templated files and place them where they need to be.
 
-📍 Variables defined in `cluster-secrets.sops.yaml` and `cluster-settings.sops.yaml` will be usable anywhere in your YAML manifests under `./cluster`
+    📍 Variables defined in `cluster-secrets.sops.yaml` and `cluster-settings.sops.yaml` will be usable anywhere in your YAML manifests under `./cluster`
 
 5. **Verify** all the above files have the correct information present, and no secrets are committed to your repo.
 
 6. If you verified all the secrets are encrypted, you can delete the `tmpl` directory now
 
-7.  Push your changes to git
+7. Push your changes to git
 
-```sh
-git add -A
-git commit -m "initial commit"
-git push
-```
+    ```sh
+    git add -A
+    git commit -m "initial commit"
+    git push
+    ```
 
 ### ⛵ Installing k3s with k3sup
 
@@ -236,33 +234,33 @@ git push
 
 2. Install the master node(s)
 
-_We will be installing metallb instead of servicelb, traefik and metrics-server will be installed with Flux._
+    _We will be installing metallb instead of servicelb, traefik and metrics-server will be installed with Flux._
 
-```sh
-k3sup install \
-    --host=169.254.1.1 \
-    --user=k8s-at-home \
-    --k3s-extra-args="--disable servicelb --disable traefik --disable metrics-server --kubelet-arg='feature-gates=MixedProtocolLBService=true,GracefulNodeShutdown=true'"
-```
+    ```sh
+    k3sup install \
+        --host=169.254.1.1 \
+        --user=k8s-at-home \
+        --k3s-extra-args="--disable servicelb --disable traefik --disable metrics-server --kubelet-arg='feature-gates=MixedProtocolLBService=true,GracefulNodeShutdown=true'"
+    ```
 
 3. Join worker nodes (optional)
 
-```sh
-k3sup join \
-    --host=169.254.1.2 \
-    --server-host=169.254.1.1 \
-    --user=k8s-at-home \
-    --k3s-extra-args="--kubelet-arg='feature-gates=MixedProtocolLBService=true,GracefulNodeShutdown=true'"
-```
+    ```sh
+    k3sup join \
+        --host=169.254.1.2 \
+        --server-host=169.254.1.1 \
+        --user=k8s-at-home \
+        --k3s-extra-args="--kubelet-arg='feature-gates=MixedProtocolLBService=true,GracefulNodeShutdown=true'"
+    ```
 
 4. Verify the nodes are online
 
-```sh
-kubectl --kubeconfig=./kubeconfig get nodes
-# NAME           STATUS   ROLES                       AGE     VERSION
-# k8s-master-a   Ready    control-plane,master      4d20h   vv1.23.3+k3s1
-# k8s-worker-a   Ready    worker                    4d20h   vv1.23.3+k3s1
-```
+    ```sh
+    kubectl --kubeconfig=./kubeconfig get nodes
+    # NAME           STATUS   ROLES                       AGE     VERSION
+    # k8s-master-a   Ready    control-plane,master      4d20h   vv1.23.3+k3s1
+    # k8s-worker-a   Ready    worker                    4d20h   vv1.23.3+k3s1
+    ```
 
 ### 🔹 GitOps with Flux
 
@@ -270,57 +268,56 @@ kubectl --kubeconfig=./kubeconfig get nodes
 
 1. Verify Flux can be installed
 
-```sh
-flux --kubeconfig=./kubeconfig check --pre
-# ► checking prerequisites
-# ✔ kubectl v1.23.3 >=1.18.0-0
-# ✔ Kubernetes v1.23.3+k3s1 >=1.16.0-0
-# ✔ prerequisites checks passed
-```
+    ```sh
+    flux --kubeconfig=./kubeconfig check --pre
+    # ► checking prerequisites
+    # ✔ kubectl v1.23.3 >=1.18.0-0
+    # ✔ Kubernetes v1.23.3+k3s1 >=1.16.0-0
+    # ✔ prerequisites checks passed
+    ```
 
 2. Pre-create the `flux-system` namespace
 
-```sh
-kubectl --kubeconfig=./kubeconfig create namespace flux-system --dry-run=client -o yaml | kubectl --kubeconfig=./kubeconfig apply -f -
-```
+    ```sh
+    kubectl --kubeconfig=./kubeconfig create namespace flux-system --dry-run=client -o yaml | kubectl --kubeconfig=./kubeconfig apply -f -
+    ```
 
 3. Add the Flux GPG key in-order for Flux to decrypt SOPS secrets
 
-```sh
-gpg --export-secret-keys --armor "${BOOTSTRAP_FLUX_KEY_FP}" |
-kubectl --kubeconfig=./kubeconfig create secret generic sops-gpg \
-    --namespace=flux-system \
-    --from-file=sops.asc=/dev/stdin
-```
+    ```sh
+    gpg --export-secret-keys --armor "${BOOTSTRAP_FLUX_KEY_FP}" |
+    kubectl --kubeconfig=./kubeconfig create secret generic sops-gpg \
+        --namespace=flux-system \
+        --from-file=sops.asc=/dev/stdin
+    ```
 
 4. Install Flux
 
-📍 Due to race conditions with the Flux CRDs you will have to run the below command twice. There should be no errors on this second run.
+    📍 Due to race conditions with the Flux CRDs you will have to run the below command twice. There should be no errors on this second run.
 
-```sh
-kubectl --kubeconfig=./kubeconfig apply --kustomize=./cluster/base/flux-system
-# namespace/flux-system configured
-# customresourcedefinition.apiextensions.k8s.io/alerts.notification.toolkit.fluxcd.io created
-# ...
-# unable to recognize "./cluster/base/flux-system": no matches for kind "Kustomization" in version "kustomize.toolkit.fluxcd.io/v1beta1"
-# unable to recognize "./cluster/base/flux-system": no matches for kind "GitRepository" in version "source.toolkit.fluxcd.io/v1beta1"
-# unable to recognize "./cluster/base/flux-system": no matches for kind "HelmRepository" in version "source.toolkit.fluxcd.io/v1beta1"
-# unable to recognize "./cluster/base/flux-system": no matches for kind "HelmRepository" in version "source.toolkit.fluxcd.io/v1beta1"
-# unable to recognize "./cluster/base/flux-system": no matches for kind "HelmRepository" in version "source.toolkit.fluxcd.io/v1beta1"
-# unable to recognize "./cluster/base/flux-system": no matches for kind "HelmRepository" in version "source.toolkit.fluxcd.io/v1beta1"
-```
+    ```sh
+    kubectl --kubeconfig=./kubeconfig apply --kustomize=./cluster/base/flux-system
+    # namespace/flux-system configured
+    # customresourcedefinition.apiextensions.k8s.io/alerts.notification.toolkit.fluxcd.io created
+    # ...
+    # unable to recognize "./cluster/base/flux-system": no matches for kind "Kustomization" in version "kustomize.toolkit.fluxcd.io/v1beta1"
+    # unable to recognize "./cluster/base/flux-system": no matches for kind "GitRepository" in version "source.toolkit.fluxcd.io/v1beta1"
+    # unable to recognize "./cluster/base/flux-system": no matches for kind "HelmRepository" in version "source.toolkit.fluxcd.io/v1beta1"
+    # unable to recognize "./cluster/base/flux-system": no matches for kind "HelmRepository" in version "source.toolkit.fluxcd.io/v1beta1"
+    # unable to recognize "./cluster/base/flux-system": no matches for kind "HelmRepository" in version "source.toolkit.fluxcd.io/v1beta1"
+    # unable to recognize "./cluster/base/flux-system": no matches for kind "HelmRepository" in version "source.toolkit.fluxcd.io/v1beta1"
+    ```
 
 5. Verify Flux components are running in the cluster
 
-```sh
-kubectl --kubeconfig=./kubeconfig get pods -n flux-system
-# NAME                                       READY   STATUS    RESTARTS   AGE
-# helm-controller-5bbd94c75-89sb4            1/1     Running   0          1h
-# kustomize-controller-7b67b6b77d-nqc67      1/1     Running   0          1h
-# notification-controller-7c46575844-k4bvr   1/1     Running   0          1h
-# source-controller-7d6875bcb4-zqw9f         1/1     Running   0          1h
-```
-
+    ```sh
+    kubectl --kubeconfig=./kubeconfig get pods -n flux-system
+    # NAME                                       READY   STATUS    RESTARTS   AGE
+    # helm-controller-5bbd94c75-89sb4            1/1     Running   0          1h
+    # kustomize-controller-7b67b6b77d-nqc67      1/1     Running   0          1h
+    # notification-controller-7c46575844-k4bvr   1/1     Running   0          1h
+    # source-controller-7d6875bcb4-zqw9f         1/1     Running   0          1h
+    ```
 
 🎉 **Congratulations** you have a Kubernetes cluster managed by Flux, your Git repository is driving the state of your cluster.
 

@@ -21,3 +21,7 @@ MD013:
   strict: false
   # Stern length checking
   stern: false
+
+# MD033/no-inline-html - Inline HTML
+MD033:
+  allowed_elements: ["img"]
