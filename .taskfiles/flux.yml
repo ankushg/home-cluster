@@ -2,6 +2,10 @@
 version: "3"
 
 tasks:
+  default:
+    - task: sync
+    - task: verify
+    - task: health
   sync:
     desc: Sync flux-system with the Git Repository
     cmds:
@@ -10,11 +14,18 @@ tasks:
   verify:
     desc: Verify flux-system nodes
     cmds:
-      - "task kubectl:flux:"
-  health:
-    desc: View health of main Flux GitRepository, HelmReleases, and HelmRepositories
+      - kubectl get pods -n flux-system
+  sources:
     cmds:
       - flux --kubeconfig=./kubeconfig get sources git
-      - flux --kubeconfig=./kubeconfig get helmrelease -A
       - flux --kubeconfig=./kubeconfig get sources helm -A
+  kustomizations:
+    cmds:
       - flux --kubeconfig=./kubeconfig get kustomizations -A
+  helmreleases:
+    cmds:
+      - flux --kubeconfig=./kubeconfig get helmrelease -A
+  health:
+    - task: sources
+    - task: kustomizations
+    - task: helmreleases
