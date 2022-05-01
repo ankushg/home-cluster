@@ -24,16 +24,17 @@ spec:
       retries: 3
   values:
     image:
-      repository: koush/scrypted
+      repository: ghcr.io/koush/scrypted
       tag: v0.0.171
     env:
       TZ: "America/Los_Angeles"
     ingress:
       enabled: true
+      ingressClassName: "traefik"
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-production"
         hajimari.io/enable: "true"
-        hajimari.io/icon: "video-input-antenna"
+        hajimari.io/icon: "cctv"
         kubernetes.io/ingress.class: "traefik"
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
       hosts:
