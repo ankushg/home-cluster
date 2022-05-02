@@ -24,37 +24,29 @@ spec:
       retries: 3
   values:
     image:
-      repository: ghcr.io/koush/scrypted
+      repository: koush/scrypted
       tag: v0.0.171
     env:
       TZ: "America/Los_Angeles"
+    service:
+      main:
+        enabled: true
     ingress:
       main:
         enabled: true
         ingressClassName: "traefik"
         annotations:
-          cert-manager.io/cluster-issuer: "letsencrypt-production"
           hajimari.io/enable: "true"
           hajimari.io/icon: "cctv"
-          kubernetes.io/ingress.class: "traefik"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
           - host: "scrypted.${SECRET_DOMAIN}"
             paths:
-              - "/"
+              - path: /
+                pathType: Prefix
         tls:
           - secretName: scrypted-tls
             hosts:
               - "scrypted.${SECRET_DOMAIN}"
-    service:
-      main:
-        enabled: true
-        ports:
-          http:
-            primary: false
-          https:
-            enabled: true
-            primary: true
     persistence:
       config:
         enabled: true
