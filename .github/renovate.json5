@@ -133,6 +133,10 @@
     {
       "groupName": "tailscale",
       "matchPackagePatterns": ["tailscale"]
+    },
+    {
+      "groupName": "scrypted",
+      "matchPackagePatterns": ["scrypted"]
     }
   ]
 }
