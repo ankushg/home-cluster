@@ -25,7 +25,7 @@ spec:
   values:
     image:
       repository: docker.io/mvisonneau/tailscale
-      tag: "v1.24.0"
+      tag: "v1.24.2"
     config:
       variables:
         TAILSCALE_ADVERTISE_ROUTES: "${CLUSTER_IP_RANGE},${RESERVED_LAN_CIDR}"
