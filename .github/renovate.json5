@@ -115,7 +115,7 @@
       "matchPackagePatterns": ["omada-controller"]
     },
     {
-      "groupName": "tailscale-relay",
+      "groupName": "tailscale",
       "matchPackagePatterns": ["tailscale"]
     },
     {
