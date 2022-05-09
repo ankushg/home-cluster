@@ -43,7 +43,7 @@ spec:
           hajimari.io/enable: "true"
           hajimari.io/icon: "router-wireless-settings"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: home-omada-redirect@kubernetescrd,home-omada-headers@kubernetescrd
+          traefik.ingress.kubernetes.io/router.middlewares: home-omada-headers@kubernetescrd,home-omada-redirect@kubernetescrd
         hosts:
           - host: "omada.${SECRET_DOMAIN}"
             paths:
