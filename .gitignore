@@ -8,3 +8,11 @@ kubeconfig
 # vscode-sops
 .decrypted~*.yaml
 .config.env
+*.agekey
+*.pub
+*.key
+github-deploy-key*
+# Terraform
+.terraform
+.terraform.tfstate*
+terraform.tfstate*
