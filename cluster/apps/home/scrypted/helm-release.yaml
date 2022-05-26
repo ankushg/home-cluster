@@ -25,7 +25,7 @@ spec:
   values:
     image:
       repository: koush/scrypted
-      tag: v0.0.180
+      tag: v0.0.181
     env:
       TZ: "America/Los_Angeles"
     service:
