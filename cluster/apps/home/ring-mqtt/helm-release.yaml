@@ -22,7 +22,7 @@ spec:
       nameOverride: *app
     image:
       repository: tsightler/ring-mqtt
-      tag: 5.0.1
+      tag: 5.0.2
     env:
       TZ: "America/Los_Angeles"
     service:
