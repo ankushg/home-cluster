@@ -74,6 +74,11 @@ spec:
         port: 8082
         expose: true
         exposedPort: 8082
+      traefikhub-tunl:
+        port: 9901
+        expose: true
+        exposedPort: 9901
+        protocol: TCP
     tlsOptions:
       default:
         minVersion: VersionTLS12
@@ -83,8 +88,13 @@ spec:
       enabled: true
       token: "${SECRET_TRAEFIK_PILOT_TOKEN}"
     experimental:
+      hub: true
       plugins:
         enabled: true
+    hub: {}
+    metrics:
+      prometheus:
+        addRouterLabels: true
     resources:
       requests:
         memory: 100Mi
