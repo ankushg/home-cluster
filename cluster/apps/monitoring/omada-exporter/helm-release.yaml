@@ -13,7 +13,7 @@ spec:
       version: 0.5.0
       sourceRef:
         kind: HelmRepository
-        name: charlie-haley-charts
+        name: charlie-haley
         namespace: flux-system
       interval: 5m
   install:
