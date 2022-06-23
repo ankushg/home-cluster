@@ -7,7 +7,6 @@ resources:
   - charlie-haley.yaml
   - deliveryhero.yaml
   - descheduler.yaml
-  - ealenn.yaml
   - external-dns.yaml
   - grafana.yaml
   - hajimari.yaml
