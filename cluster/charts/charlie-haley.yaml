@@ -5,6 +5,5 @@ metadata:
   name: charlie-haley
   namespace: flux-system
 spec:
-  interval: 30m
+  interval: 1h
   url: http://charts.charliehaley.dev
-  timeout: 3m
