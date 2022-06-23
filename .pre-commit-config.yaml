@@ -29,10 +29,6 @@ repos:
     rev: v2.1.1
     hooks:
       - id: forbid-secrets
-  - repo: https://github.com/zricethezav/gitleaks
-    rev: v8.8.7
-    hooks:
-      - id: gitleaks
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v1.3.0
     hooks:
