@@ -1,0 +1,31 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - authentik.yaml
+  - bitnami.yaml
+  - charlie-haley.yaml
+  - deliveryhero.yaml
+  - descheduler.yaml
+  - ealenn.yaml
+  - external-dns.yaml
+  - grafana.yaml
+  - hajimari.yaml
+  - infracloudio.yaml
+  - jetstack.yaml
+  - k8s-at-home.yaml
+  - khuedoan.yaml
+  - kubernetes-dashboard.yaml
+  - metallb.yaml
+  - metrics-server.yaml
+  - minecraft-server.yaml
+  - minio.yaml
+  - mvisonneau.yaml
+  - nfs-subdir-external-provisioner.yaml
+  - node-feature-discovery.yaml
+  - prometheus-community.yaml
+  - rook-ceph.yaml
+  - stakater.yaml
+  - traefik.yaml
+  - traefik-hub.yaml
+  - weaveworks-kured.yaml
