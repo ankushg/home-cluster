@@ -24,7 +24,7 @@ Big shout out to all of the contributors to the projects that I'm using in this 
 
 A lot of inspiration for this repo came from the following projects:
 
-- [k8s-at-home/template-cluster-k3s](https://github.com/k8s-at-home/template-cluster-k3s)
+- [k8s-at-home/flux-cluster-template](https://github.com/k8s-at-home/flux-cluster-template)
 - [onedr0p/home-cluster](https://github.com/onedr0p/home-cluster)
 - [carpenike/k8s-gitops](https://github.com/carpenike/k8s-gitops)
 - [and many more](https://github.com/k8s-at-home/awesome-home-kubernetes)
