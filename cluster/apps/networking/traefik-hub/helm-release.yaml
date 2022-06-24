@@ -28,3 +28,9 @@ spec:
       tag: experimental
       pullPolicy: always
     token: "${SECRET_TRAEFIK_HUB_TOKEN}"
+    podAnnotations:
+      secret.reloader.stakater.com/reload: "traefik-hub-secrets"
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: traefik-hub-secrets

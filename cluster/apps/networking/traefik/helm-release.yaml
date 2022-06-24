@@ -101,3 +101,9 @@ spec:
         cpu: 500m
       limits:
         memory: 500Mi
+    podAnnotations:
+      secret.reloader.stakater.com/reload: "traefik-secrets"
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: traefik-secrets

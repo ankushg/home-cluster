@@ -41,3 +41,5 @@ spec:
           originRequest:
             noTLSVerify: true
         - service: http_status:404
+    podAnnotations:
+      secret.reloader.stakater.com/reload: "cloudflared-credentials"
