@@ -26,7 +26,7 @@ spec:
     image:
       name: ghcr.io/traefik/hub-agent-kubernetes
       tag: experimental
-      pullPolicy: always
+      pullPolicy: Always
     podAnnotations:
       secret.reloader.stakater.com/reload: "traefik-hub-secrets"
   valuesFrom:
