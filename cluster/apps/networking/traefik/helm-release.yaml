@@ -61,6 +61,8 @@ spec:
       - "--providers.kubernetesingress.ingressendpoint.ip=${SVC_TRAEFIK_ADDR}"
       - "--providers.kubernetescrd.allowexternalnameservices=true"
       - "--providers.kubernetesingress.allowexternalnameservices=true"
+      - "--experimental.hub"
+      - "--hub"
     ports:
       traefik:
         expose: true
