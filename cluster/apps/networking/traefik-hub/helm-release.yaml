@@ -24,6 +24,7 @@ spec:
       retries: 3
   values:
     image:
+      name: ghcr.io/traefik/hub-agent-kubernetes
       tag: experimental
       pullPolicy: always
     token: "${SECRET_TRAEFIK_HUB_TOKEN}"
