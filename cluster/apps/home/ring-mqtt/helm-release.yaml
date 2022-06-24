@@ -68,7 +68,7 @@ spec:
         enabled: true
         env:
           TZ: "America/Los_Angeles"
-        workingDir: "/config"
+        workingDir: "/"
         args:
           - --auth
           - "none"
@@ -87,9 +87,13 @@ spec:
           tls:
             - hosts:
                 - "ringmqtt-config.${SECRET_DOMAIN}"
+          annotations:
+            cert-manager.io/cluster-issuer: "letsencrypt-production"
+            hajimari.io/enable: "true"
+            traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         volumeMounts:
           - name: config
-            mountPath: /config
+            mountPath: /
     resources:
       requests:
         cpu: 100m
