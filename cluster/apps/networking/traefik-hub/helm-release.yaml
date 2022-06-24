@@ -29,10 +29,6 @@ spec:
       pullPolicy: always
     podAnnotations:
       secret.reloader.stakater.com/reload: "traefik-hub-secrets"
-  postBuild:
-    substituteFrom:
-      - kind: Secret
-        name: traefik-hub-secrets
   valuesFrom:
     - kind: Secret
       name: traefik-hub-secrets
