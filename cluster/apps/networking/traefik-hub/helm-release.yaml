@@ -12,7 +12,7 @@ spec:
       version: 0.20.0
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home
+        name: traefik-hub
         namespace: flux-system
       interval: 5m
   install:
