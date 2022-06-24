@@ -86,7 +86,6 @@ spec:
         sniStrict: true
     pilot:
       enabled: true
-      token: "${SECRET_TRAEFIK_PILOT_TOKEN}"
     experimental:
       hub: true
       plugins:
@@ -103,7 +102,8 @@ spec:
         memory: 500Mi
     podAnnotations:
       secret.reloader.stakater.com/reload: "traefik-secrets"
-  postBuild:
-    substituteFrom:
-      - kind: Secret
-        name: traefik-secrets
+  valuesFrom:
+    - kind: Secret
+      name: traefik-secrets
+      valuesKey: SECRET_TRAEFIK_PILOT_TOKEN
+      targetPath: pilot.token

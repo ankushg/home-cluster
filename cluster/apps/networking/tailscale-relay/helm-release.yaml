@@ -27,12 +27,12 @@ spec:
       repository: docker.io/mvisonneau/tailscale
       tag: "v1.26.0"
     config:
-      authKey: "${tailscale-token}"
       variables:
         TAILSCALE_ADVERTISE_ROUTES: "${CLUSTER_IP_RANGE},${RESERVED_LAN_CIDR}"
     podAnnotations:
       secret.reloader.stakater.com/reload: "tailscale-token-secret"
-  postBuild:
-    substituteFrom:
-      - kind: Secret
-        name: tailscale-token-secrets
+  valuesFrom:
+    - kind: Secret
+      name: tailscale-token-secrets
+      valuesKey: tailscale-token
+      targetPath: config.authKey
