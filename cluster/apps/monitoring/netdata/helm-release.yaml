@@ -36,14 +36,10 @@ spec:
         hajimari.io/enable: "true"
         hajimari.io/icon: ""
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-      path: /
-      pathType: Prefix
-      hosts:
-        - "netdata.${SECRET_DOMAIN}"
-        - "netdata.k8s.local"
       spec:
         ingressClassName: "traefik"
         hosts:
+          - host: "netdata.k8s.local"
           - host: "netdata.${SECRET_DOMAIN}"
         tls:
           - hosts:
