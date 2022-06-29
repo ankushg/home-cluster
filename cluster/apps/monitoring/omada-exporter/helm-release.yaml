@@ -25,19 +25,13 @@ spec:
       retries: 3
   values:
     image:
-      repository: chhaley/omada_exporter
+      repository: ghcr.io/charlie-haley/omada_exporter
       tag: "0.6.0"
     env:
       TZ: "${TIMEZONE}"
     omada:
       host: "https://${SVC_OMADA_ADDR}:8043"
       insecure: true
-    resources:
-      requests:
-        memory: 500Mi
-        cpu: 35m
-      limits:
-        memory: 750Mi
   valuesFrom:
     - kind: Secret
       name: omada-exporter-secrets
