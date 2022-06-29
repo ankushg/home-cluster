@@ -32,7 +32,7 @@ spec:
       strategy: RollingUpdate
       replicas: 2
     env:
-      TZ: "America/Los_Angeles"
+      TZ: "${TIMEZONE}"
     service:
       main:
         ports:

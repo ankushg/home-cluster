@@ -24,7 +24,7 @@ spec:
       repository: tsightler/ring-mqtt
       tag: 5.0.2
     env:
-      TZ: "America/Los_Angeles"
+      TZ: "${TIMEZONE}"
     service:
       main:
         enabled: true
@@ -67,7 +67,7 @@ spec:
       codeserver:
         enabled: true
         env:
-          TZ: "America/Los_Angeles"
+          TZ: "${TIMEZONE}"
         workingDir: "/"
         args:
           - --auth

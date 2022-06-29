@@ -28,7 +28,7 @@ spec:
       repository: chhaley/omada_exporter
       tag: "0.6.0"
     env:
-      TZ: America/Los_Angeles
+      TZ: "${TIMEZONE}"
     omada:
       host: "https://${SVC_OMADA_ADDR}:8043"
       insecure: true

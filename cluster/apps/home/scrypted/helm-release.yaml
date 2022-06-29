@@ -27,7 +27,7 @@ spec:
       repository: koush/scrypted
       tag: v0.1.11
     env:
-      TZ: "America/Los_Angeles"
+      TZ: "${TIMEZONE}"
     service:
       main:
         enabled: true
