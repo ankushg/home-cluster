@@ -35,9 +35,20 @@ spec:
       enabled: false # need to install prometheus-operator first
     ingress:
       enabled: true
+      ingressClassName: "traefik"
       annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-production"
+        hajimari.io/enable: "true"
+        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
       hosts:
+        - host: "omada-exporter.${SECRET_DOMAIN}"
+          paths:
+            - path: /
+              pathType: Prefix
       tls:
+        - hosts:
+            - "omada-exporter.${SECRET_DOMAIN}"
+          secretName: "omada-exporter-tls"
   valuesFrom:
     - kind: Secret
       name: omada-exporter-secrets
