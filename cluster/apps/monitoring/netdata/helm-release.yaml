@@ -27,6 +27,8 @@ spec:
     image:
       repository: netdata/netdata
       tag: "1.35.1"
+    service:
+      port: 80
     ingress:
       enabled: true
       annotations:
@@ -34,17 +36,19 @@ spec:
         hajimari.io/enable: "true"
         hajimari.io/icon: ""
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+      path: /
+      pathType: Prefix
+      hosts:
+        - "netdata.${SECRET_DOMAIN}"
+        - "netdata.k8s.local"
       spec:
         ingressClassName: "traefik"
-      # hosts:
-      #   - host: "netdata.${SECRET_DOMAIN}"
-      #     paths:
-      #       - path: /
-      #         pathType: Prefix
-      # tls:
-      #   - hosts:
-      #       - "netdata.${SECRET_DOMAIN}"
-      #     secretName: "netdata-tls"
+        hosts:
+          - host: "netdata.${SECRET_DOMAIN}"
+        tls:
+          - hosts:
+              - "netdata.${SECRET_DOMAIN}"
+            secretName: "netdata-tls"
     env:
       TZ: "${TIMEZONE}"
     parent:
