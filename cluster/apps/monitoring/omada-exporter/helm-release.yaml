@@ -6,7 +6,6 @@ metadata:
   namespace: monitoring
 spec:
   interval: 5m
-  releaseName: omada-exporter
   chart:
     spec:
       chart: omada-exporter
