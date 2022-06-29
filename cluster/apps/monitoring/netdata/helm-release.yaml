@@ -36,15 +36,15 @@ spec:
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
       spec:
         ingressClassName: "traefik"
-      hosts:
-        - host: "netdata.${SECRET_DOMAIN}"
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - hosts:
-            - "netdata.${SECRET_DOMAIN}"
-          secretName: "netdata-tls"
+      # hosts:
+      #   - host: "netdata.${SECRET_DOMAIN}"
+      #     paths:
+      #       - path: /
+      #         pathType: Prefix
+      # tls:
+      #   - hosts:
+      #       - "netdata.${SECRET_DOMAIN}"
+      #     secretName: "netdata-tls"
     env:
       TZ: "${TIMEZONE}"
     parent:
