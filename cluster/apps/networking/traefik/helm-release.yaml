@@ -61,8 +61,8 @@ spec:
       - "--providers.kubernetesingress.ingressendpoint.ip=${SVC_TRAEFIK_ADDR}"
       - "--providers.kubernetescrd.allowexternalnameservices=true"
       - "--providers.kubernetesingress.allowexternalnameservices=true"
-      - "--experimental.hub"
-      - "--hub"
+      # - "--experimental.hub"
+      # - "--hub"
     ports:
       traefik:
         expose: true
@@ -76,11 +76,11 @@ spec:
         port: 8082
         expose: true
         exposedPort: 8082
-      traefikhub-tunl:
-        port: 9901
-        expose: true
-        exposedPort: 9901
-        protocol: TCP
+      # traefikhub-tunl:
+      #   port: 9901
+      #   expose: true
+      #   exposedPort: 9901
+      #   protocol: TCP
     tlsOptions:
       default:
         minVersion: VersionTLS12
@@ -89,10 +89,10 @@ spec:
     pilot:
       enabled: true
     experimental:
-      hub: true
+      # hub: true
       plugins:
         enabled: true
-    hub: {}
+    # hub: {}
     metrics:
       prometheus:
         addRouterLabels: true
