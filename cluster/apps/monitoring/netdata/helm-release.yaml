@@ -29,12 +29,13 @@ spec:
       tag: "1.35.1"
     ingress:
       enabled: true
-      ingressClassName: "traefik"
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-production"
         hajimari.io/enable: "true"
         hajimari.io/icon: ""
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+      spec:
+        ingressClassName: "traefik"
       hosts:
         - host: "netdata.${SECRET_DOMAIN}"
           paths:
