@@ -35,8 +35,8 @@ spec:
         hajimari.io/icon: ""
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
       hosts:
-        - host: "netdata.k8s.local"
-        - host: "netdata.${SECRET_DOMAIN}"
+        - "netdata.k8s.local"
+        - "netdata.${SECRET_DOMAIN}"
       tls:
         - hosts:
             - "netdata.${SECRET_DOMAIN}"
