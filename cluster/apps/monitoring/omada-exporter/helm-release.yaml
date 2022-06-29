@@ -31,6 +31,13 @@ spec:
     omada:
       host: "https://${SVC_OMADA_ADDR}:8043"
       insecure: true
+    serviceMonitor:
+      enabled: false # need to install prometheus-operator first
+    ingress:
+      enabled: true
+      annotations:
+      hosts:
+      tls:
   valuesFrom:
     - kind: Secret
       name: omada-exporter-secrets
