@@ -91,7 +91,7 @@ spec:
           tls:
             - hosts:
                 - "ringmqtt-config.${SECRET_DOMAIN}"
-
+              secretName: "ringmqtt-config-tls"
         volumeMounts:
           - name: config
             mountPath: /config
