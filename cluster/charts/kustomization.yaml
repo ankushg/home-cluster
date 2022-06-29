@@ -21,6 +21,7 @@ resources:
   - minio.yaml
   - mvisonneau.yaml
   - nfs-subdir-external-provisioner.yaml
+  - netdata.yaml
   - node-feature-discovery.yaml
   - prometheus-community.yaml
   - rook-ceph.yaml
