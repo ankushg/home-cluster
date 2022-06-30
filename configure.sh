@@ -53,7 +53,7 @@ main() {
 
         # sops
         sops --encrypt --in-place "${PROJECT_DIR}/cluster/config/cluster-secrets.sops.yaml"
-        sops --encrypt --in-place "${PROJECT_DIR}/cluster/core/cert-manager/secret.sops.yaml"
+        sops --encrypt --in-place "${PROJECT_DIR}/cluster/core/cluster-issuers/secret.sops.yaml"
     fi
 }
 
