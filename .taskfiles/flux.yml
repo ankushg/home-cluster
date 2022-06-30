@@ -9,7 +9,8 @@ tasks:
   sync:
     desc: Sync flux-system with the Git Repository
     cmds:
-      - flux reconcile source git flux-system
+      - flux reconcile -n flux-system source git flux-cluster
+      - flux reconcile -n flux-system source kustomization flux-cluster
     silent: true
   verify:
     desc: Verify flux-system nodes

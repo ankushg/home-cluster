@@ -90,26 +90,14 @@ pre-commit install --install-hooks
 
 The Git repository contains the following directories under `cluster` and are ordered below by how Flux will apply them.
 
-- **base** directory is the entrypoint to Flux
-- **crds** directory contains custom resource definitions (CRDs) that need to exist globally in your cluster before anything else exists
-- **core** directory (depends on **crds**) are important infrastructure applications (grouped by namespace) that should never be pruned by Flux
-- **apps** directory (depends on **core**) is where your common applications (grouped by namespace) could be placed, Flux will prune resources here if they are not tracked by Git anymore
-
 ```sh
-cluster
-├── apps
-│   ├── default
-│   ├── networking
-│   └── system-upgrade
-├── base
-│   └── flux-system
-├── core
-│   ├── cert-manager
-│   ├── metallb-system
-│   ├── namespaces
-│   └── system-upgrade
-└── crds
-    └── cert-manager
+📁 cluster      # k8s cluster defined as code
+├─📁 flux       # flux, gitops operator, loaded before everything
+├─📁 crds       # custom resources, loaded before 📁 core and 📁 apps
+├─📁 charts     # helm repos, loaded before 📁 core and 📁 apps
+├─📁 config     # cluster config, loaded before 📁 core and 📁 apps
+├─📁 core       # crucial apps, namespaced dir tree, loaded before 📁 apps
+└─📁 apps       # regular apps, namespaced dir tree, loaded last
 ```
 
 ## 🚀 Lets go
@@ -255,7 +243,7 @@ In order to use `cert-manager` with the Cloudflare DNS challenge you will need t
 4. Verify the nodes are online
 
    ```sh
-   kubectl --kubeconfig=./kubeconfig get nodes
+   task cluster:nodes
    # NAME           STATUS   ROLES                       AGE     VERSION
    # k8s-master-a   Ready    control-plane,master      4d20h   vv1.23.3+k3s1
    # k8s-worker-a   Ready    worker                    4d20h   vv1.23.3+k3s1
@@ -268,34 +256,19 @@ In order to use `cert-manager` with the Cloudflare DNS challenge you will need t
 1. Verify Flux can be installed
 
    ```sh
-   flux --kubeconfig=./kubeconfig check --pre
+   task cluster:verify
    # ► checking prerequisites
    # ✔ kubectl v1.23.3 >=1.18.0-0
    # ✔ Kubernetes v1.23.3+k3s1 >=1.16.0-0
    # ✔ prerequisites checks passed
    ```
 
-2. Pre-create the `flux-system` namespace
+2. Install Flux and sync the cluster to the Git repository
+
+   📍 Due to race conditions with the Flux CRDs you might have to run the below command twice. There should be no errors on this second run.
 
    ```sh
-   kubectl --kubeconfig=./kubeconfig create namespace flux-system --dry-run=client -o yaml | kubectl --kubeconfig=./kubeconfig apply -f -
-   ```
-
-3. Add the Flux GPG key in-order for Flux to decrypt SOPS secrets
-
-   ```sh
-   gpg --export-secret-keys --armor "${BOOTSTRAP_FLUX_KEY_FP}" |
-   kubectl --kubeconfig=./kubeconfig create secret generic sops-gpg \
-       --namespace=flux-system \
-       --from-file=sops.asc=/dev/stdin
-   ```
-
-4. Install Flux
-
-   📍 Due to race conditions with the Flux CRDs you will have to run the below command twice. There should be no errors on this second run.
-
-   ```sh
-   kubectl --kubeconfig=./kubeconfig apply --kustomize=./cluster/base/flux-system
+   task cluster:install
    # namespace/flux-system configured
    # customresourcedefinition.apiextensions.k8s.io/alerts.notification.toolkit.fluxcd.io created
    # ...
@@ -307,10 +280,10 @@ In order to use `cert-manager` with the Cloudflare DNS challenge you will need t
    # unable to recognize "./cluster/base/flux-system": no matches for kind "HelmRepository" in version "source.toolkit.fluxcd.io/v1beta1"
    ```
 
-5. Verify Flux components are running in the cluster
+3. Verify Flux components are running in the cluster
 
    ```sh
-   kubectl --kubeconfig=./kubeconfig get pods -n flux-system
+   task cluster:pods -- -n flux-system
    # NAME                                       READY   STATUS    RESTARTS   AGE
    # helm-controller-5bbd94c75-89sb4            1/1     Running   0          1h
    # kustomize-controller-7b67b6b77d-nqc67      1/1     Running   0          1h
@@ -403,7 +376,7 @@ Flux has a wide range of CLI options available be sure to run `flux --help` to v
 
 ### 🤖 Automation
 
-- [Renovate](https://www.whitesourcesoftware.com/free-developer-tools/renovate) is a very useful tool that when configured will start to create PRs in your Github repository when Docker images, Helm charts or anything else that can be tracked has a newer version. The configuration for renovate is located [here](./.github/renovate.json5).
+- [Renovate](https://www.mend.io/free-developer-tools/renovate) is a very useful tool that when configured will start to create PRs in your Github repository when Docker images, Helm charts or anything else that can be tracked has a newer version. The configuration for renovate is located [here](./.github/renovate.json5).
 
 - [system-upgrade-controller](https://github.com/rancher/system-upgrade-controller) will watch for new k3s releases and upgrade your nodes when new releases are found.
 
