@@ -224,10 +224,14 @@ In order to use `cert-manager` with the Cloudflare DNS challenge you will need t
    _We will be installing metallb instead of servicelb, traefik and metrics-server will be installed with Flux._
 
    ```sh
+   # renovate: datasource=github-releases depName=k3s-io/k3s
+   K3S_VERSION="v1.24.2+k3s1"
+
    k3sup install \
        --host=169.254.1.1 \
        --user=k8s-at-home \
-       --k3s-extra-args="--disable servicelb --disable traefik --disable metrics-server --kubelet-arg='feature-gates=MixedProtocolLBService=true,GracefulNodeShutdown=true'"
+       --k3s-extra-args="--disable servicelb --disable traefik --disable metrics-server --kubelet-arg='feature-gates=MixedProtocolLBService=true,GracefulNodeShutdown=true'" \
+       --k3s-version=$K3S_VERSION
    ```
 
 3. Join worker nodes (optional)
@@ -237,7 +241,8 @@ In order to use `cert-manager` with the Cloudflare DNS challenge you will need t
        --host=169.254.1.2 \
        --server-host=169.254.1.1 \
        --user=k8s-at-home \
-       --k3s-extra-args="--kubelet-arg='feature-gates=MixedProtocolLBService=true,GracefulNodeShutdown=true'"
+       --k3s-extra-args="--kubelet-arg='feature-gates=MixedProtocolLBService=true,GracefulNodeShutdown=true'" \
+      --k3s-version=$K3S_VERSION
    ```
 
 4. Verify the nodes are online

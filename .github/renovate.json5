@@ -43,12 +43,14 @@
     {
       "description": "Process various other dependencies",
       "fileMatch": [
+        "README.md",
+        "SETUP.md",
         "provision/ansible/.+\\.ya?ml$",
         "cluster/.+\\.ya?ml$"
       ],
       "matchStrings": [
         "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n",
-        // Misc custom matchers (not from upstream):
+        // Misc custom matchers (from prior versions of upstream):
         "datasource=(?<datasource>.*?)( versioning=(?<versioning>.*?))?\n *url: https:\/\/github\\.com\/(?<depName>.*?)\\.git\n *ref:\n *tag: (?<currentValue>.*)\n",
         "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\n.*?_version: \"(?<currentValue>.*)\"\n",
         "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\n.*?_VERSION=\"(?<currentValue>.*)\"\n"
