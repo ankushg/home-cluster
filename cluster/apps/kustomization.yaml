@@ -6,7 +6,6 @@ resources:
   - home
   - kube-system
   - kubernetes-dashboard
-  - metallb-system
   - monitoring
   - networking
   - system-upgrade
