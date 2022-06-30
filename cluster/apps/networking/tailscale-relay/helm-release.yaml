@@ -5,7 +5,7 @@ metadata:
   name: tailscale-relay
   namespace: networking
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
       chart: tailscale-relay
@@ -14,14 +14,14 @@ spec:
         kind: HelmRepository
         name: mvisonneau
         namespace: flux-system
-      interval: 5m
+      interval: 15m
   install:
     createNamespace: true
     remediation:
-      retries: 3
+      retries: 5
   upgrade:
     remediation:
-      retries: 3
+      retries: 5
   values:
     image:
       repository: docker.io/mvisonneau/tailscale
