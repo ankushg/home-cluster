@@ -72,7 +72,6 @@
       "commitMessageExtra": "to {{#if isSingleVersion}}v{{{newVersion}}}{{else}}{{{newValue}}}{{/if}}",
       "matchUpdateTypes": ["major", "minor", "patch"],
     },
-    // add labels according to package and update types
     {
       "description": "Group Cert-Manager image (for CRDs) and chart",
       "groupName": "Cert-Manager",
@@ -82,31 +81,37 @@
       "separateMinorPatch": true
     },
     {
+      "description": "Add labels according to package and update types: docker major",
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["major"],
       "labels": ["renovate/image", "dep/major"]
     },
     {
+      "description": "Add labels according to package and update types: docker minor",
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["minor"],
       "labels": ["renovate/image", "dep/minor"]
     },
     {
+      "description": "Add labels according to package and update types: docker patch",
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["patch"],
       "labels": ["renovate/image", "dep/patch"]
     },
     {
+      "description": "Add labels according to package and update types: helm major",
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["major"],
       "labels": ["renovate/helm", "dep/major"]
     },
     {
+      "description": "Add labels according to package and update types: helm minor",
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["minor"],
       "labels": ["renovate/helm", "dep/minor"]
     },
     {
+      "description": "Add labels according to package and update types: helm patch",
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["patch"],
       "labels": ["renovate/helm", "dep/patch"]
@@ -114,31 +119,38 @@
     // group version bumps when we have multiple at the same time (e.g., helm charts and container images)
     {
       "groupName": "omada-controller",
-      "matchPackagePatterns": ["omada-controller"]
+      "matchPackagePatterns": ["omada-controller"],
+      "matchDatasources": ["docker", "helm"]
     },
     {
       "groupName": "tailscale",
-      "matchPackagePatterns": ["tailscale"]
+      "matchPackagePatterns": ["tailscale"],
+      "matchDatasources": ["docker", "helm"]
     },
     {
       "groupName": "home-assistant",
-      "matchPackagePatterns": ["home-assistant"]
+      "matchPackagePatterns": ["home-assistant"],
+      "matchDatasources": ["docker", "helm"]
     },
     {
       "groupName": "blocky",
-      "matchPackagePatterns": ["blocky"]
+      "matchPackagePatterns": ["blocky"],
+      "matchDatasources": ["docker", "helm"]
     },
     {
       "groupName": "hajimari",
-      "matchPackagePatterns": ["hajimari"]
+      "matchPackagePatterns": ["hajimari"],
+      "matchDatasources": ["docker", "helm"]
     },
     {
       "groupName": "tailscale",
-      "matchPackagePatterns": ["tailscale"]
+      "matchPackagePatterns": ["tailscale"],
+      "matchDatasources": ["docker", "helm"]
     },
     {
       "groupName": "scrypted",
-      "matchPackagePatterns": ["scrypted"]
+      "matchPackagePatterns": ["scrypted"],
+      "matchDatasources": ["docker", "helm"]
     }
   ]
 }
