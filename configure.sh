@@ -49,7 +49,7 @@ main() {
             > "${PROJECT_DIR}/cluster/flux/flux-system/flux-cluster.yaml"
 
         envsubst < "${PROJECT_DIR}/tmpl/cluster/cert-manager-secret.sops.yaml" \
-            > "${PROJECT_DIR}/cluster/core/cert-manager/secret.sops.yaml"
+            > "${PROJECT_DIR}/cluster/core/cluster-issuers/secret.sops.yaml"
 
         # sops
         sops --encrypt --in-place "${PROJECT_DIR}/cluster/config/cluster-secrets.sops.yaml"
