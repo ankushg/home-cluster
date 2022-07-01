@@ -18,3 +18,7 @@ tasks:
     desc: Verify all nodes
     cmds:
       - kubectl get nodes -A
+  wait:
+    desc: Wait for a given resource type
+    cmds:
+      - kubectl wait --for=condition=ready --all --all-namespaces {{.CLI_ARGS | default "helmreleases"}}
