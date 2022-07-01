@@ -27,6 +27,6 @@ tasks:
     cmds:
       - flux --kubeconfig=./kubeconfig get helmrelease -A
   health:
-    - task: sources
+    # - task: sources
     - task: kustomizations
     - task: helmreleases
