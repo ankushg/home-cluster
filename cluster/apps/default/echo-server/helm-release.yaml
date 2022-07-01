@@ -74,6 +74,8 @@ spec:
         ingressClassName: "traefik"
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
+          external-dns.alpha.kubernetes.io/target: "homelab-tunel.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
           hajimari.io/enable: "true"
           hajimari.io/icon: "video-input-antenna"
           kubernetes.io/ingress.class: "traefik"
