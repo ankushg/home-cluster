@@ -31,6 +31,7 @@ spec:
         hajimari.io/enable: "true"
         hajimari.io/icon: "chart-box"
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+        traefik.ingress.kubernetes.io/router.middlewares: "networking-internal-only@kubernetescrd"
       hosts:
         - "dashboard.${SECRET_DOMAIN}"
       tls:
