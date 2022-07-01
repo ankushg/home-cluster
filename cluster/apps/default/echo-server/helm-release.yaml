@@ -73,15 +73,20 @@ spec:
         enabled: true
         ingressClassName: "traefik"
         annotations:
+          # ingress
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           coredns.io/hostname: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          kubernetes.io/ingress.class: "traefik"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+
+          # access
           external-dns.alpha.kubernetes.io/target: "homelab-tunnel.${SECRET_DOMAIN}"
           external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
           external-dns/is-public: "true"
+
+          # hajimari
           hajimari.io/enable: "true"
           hajimari.io/icon: "video-input-antenna"
-          kubernetes.io/ingress.class: "traefik"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
           - host: *host
             paths:
