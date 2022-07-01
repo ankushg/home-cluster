@@ -68,6 +68,9 @@ main() {
 
         # encrypt terraform secrets
         sops --encrypt --in-place "${PROJECT_DIR}/provision/terraform/cloudflare/secret.sops.yaml"
+
+        setup_github_webhook
+        success
     fi
 }
 
@@ -187,6 +190,30 @@ verify_git_repository() {
     }
     popd >/dev/null 2>&1
     export GIT_TERMINAL_PROMPT=1
+}
+
+setup_github_webhook() {
+    WEBHOOK_SECRET="${BOOTSTRAP_FLUX_GITHUB_WEBHOOK_SECRET:-ignored}"
+
+    if [[ "${WEBHOOK_SECRET}" != "ignored" ]]; then
+        if [[ "${WEBHOOK_SECRET}" == "generated" ]]; then
+            WEBHOOK_SECRET="$(openssl rand -base64 30)"
+        fi
+
+        export BOOTSTRAP_FLUX_GITHUB_WEBHOOK_SECRET="${WEBHOOK_SECRET}"
+        _log "INFO" "Using GitHub Token '${WEBHOOK_SECRET}' for Flux"
+
+        cp -rf  "${PROJECT_DIR}/tmpl/cluster/flux-system/webhooks" "${PROJECT_DIR}/cluster/apps/flux-system"
+
+        envsubst < "${PROJECT_DIR}/tmpl/cluster/flux-system/webhooks/github/secret.sops.yaml" \
+            > "${PROJECT_DIR}/cluster/apps/flux-system/webhooks/github/secret.sops.yaml"
+
+        sops --encrypt --in-place "${PROJECT_DIR}/cluster/apps/flux-system/webhooks/github/secret.sops.yaml"
+
+        if [[ $(yq eval --no-doc 'contains({"resources": ["webhooks"]})' "${PROJECT_DIR}/cluster/apps/flux-system/kustomization.yaml") == false ]]; then
+            yq --inplace '.resources += [ "webhooks" ]' "${PROJECT_DIR}/cluster/apps/flux-system/kustomization.yaml"
+        fi
+    fi
 }
 
 verify_cloudflare() {
