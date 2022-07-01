@@ -3,6 +3,8 @@ kind: Kustomization
 resources:
   - secrets.sops.yaml
   - cloudflared-config
-  - helm-release.yaml
   - middlewares
   - dashboard
+  - tls-store
+  - default-tls-options
+  - helm-release.yaml
