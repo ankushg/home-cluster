@@ -30,3 +30,4 @@ resources:
   - traefik.yaml
   - traefik-hub.yaml
   - weaveworks-kured.yaml
+  - xunholy.yaml
