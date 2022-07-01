@@ -7,7 +7,6 @@ metadata:
   annotations:
     # traefik + certs
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
-    kubernetes.io/ingress.class: "traefik"
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
 
     coredns.io/hostname: &host "flux-receiver.${SECRET_DOMAIN}"
