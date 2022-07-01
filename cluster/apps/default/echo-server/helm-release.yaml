@@ -74,6 +74,7 @@ spec:
         ingressClassName: "traefik"
         annotations:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
+          coredns.io/hostname: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
           external-dns.alpha.kubernetes.io/target: "homelab-tunnel.${SECRET_DOMAIN}"
           external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
           external-dns/is-public: "true"
@@ -82,7 +83,7 @@ spec:
           kubernetes.io/ingress.class: "traefik"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: *host
             paths:
               - path: /
                 pathType: Prefix
