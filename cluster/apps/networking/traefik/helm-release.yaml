@@ -61,6 +61,7 @@ spec:
       - "--metrics.prometheus.entryPoint=metrics"
     additionalArguments:
       - "--providers.kubernetesingress.ingressendpoint.ip=${SVC_TRAEFIK_ADDR}"
+      - "--providers.kubernetesingress.ingressendpoint.ip=${SECRET_DOMAIN}"
       - "--providers.kubernetescrd.allowexternalnameservices=true"
       - "--providers.kubernetesingress.allowexternalnameservices=true"
       # - "--experimental.hub"
