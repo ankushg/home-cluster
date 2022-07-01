@@ -6,8 +6,6 @@ resources:
   - cloudflare-ddns
   - error-pages
   - external-dns
-  # - hub-agent
   - k8s-gateway
   - metallb
-  # - tailscale-relay
   - traefik

@@ -113,8 +113,6 @@ spec:
       - "--providers.kubernetesingress.ingressendpoint.hostname=homelab-tunnel.${SECRET_DOMAIN}"
       - "--providers.kubernetescrd.allowexternalnameservices=true"
       - "--providers.kubernetesingress.allowexternalnameservices=true"
-      # - "--experimental.hub"
-      # - "--hub"
     ports:
       traefik:
         expose: true
@@ -130,26 +128,16 @@ spec:
         port: 8082
         expose: true
         exposedPort: 8082
-
-      # traefikhub-tunl:
-      #   port: 9901
-      #   expose: true
-      #   exposedPort: 9901
-      #   protocol: TCP
     tlsOptions:
       default:
         minVersion: VersionTLS12
         maxVersion: VersionTLS13
         sniStrict: true
-    pilot:
-      enabled: true
     experimental:
       http3:
         enabled: true
-      # hub: true
       plugins:
         enabled: true
-    # hub: {}
     metrics:
       prometheus:
         addRouterLabels: true
@@ -161,8 +149,3 @@ spec:
         memory: 500Mi
     podAnnotations:
       secret.reloader.stakater.com/reload: "traefik-secrets"
-  valuesFrom:
-    - kind: Secret
-      name: traefik-secrets
-      valuesKey: SECRET_TRAEFIK_PILOT_TOKEN
-      targetPath: pilot.token
