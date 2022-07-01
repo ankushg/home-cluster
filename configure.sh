@@ -53,11 +53,14 @@ main() {
             > "${PROJECT_DIR}/cluster/core/cluster-issuers/secret.sops.yaml"
         envsubst < "${PROJECT_DIR}/tmpl/cluster/cloudflare-ddns-secret.sops.yaml" \
             > "${PROJECT_DIR}/cluster/apps/networking/cloudflare-ddns/secret.sops.yaml"
+        envsubst < "${PROJECT_DIR}/tmpl/cluster/external-dns-secret.sops.yaml" \
+            > "${PROJECT_DIR}/cluster/apps/networking/external-dns/secret.sops.yaml"
 
         # encrypt cluster secrets
         sops --encrypt --in-place "${PROJECT_DIR}/cluster/config/cluster-secrets.sops.yaml"
         sops --encrypt --in-place "${PROJECT_DIR}/cluster/core/cluster-issuers/secret.sops.yaml"
         sops --encrypt --in-place "${PROJECT_DIR}/cluster/apps/networking/cloudflare-ddns/secret.sops.yaml"
+        sops --encrypt --in-place "${PROJECT_DIR}/cluster/apps/networking/external-dns/secret.sops.yaml"
     fi
 }
 

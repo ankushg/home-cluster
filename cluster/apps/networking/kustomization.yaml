@@ -6,6 +6,7 @@ resources:
   - cloudflare-ddns
   # - cloudflared
   - error-pages
+  - external-dns
   # - hub-agent
   - k8s-gateway
   - metallb
