@@ -16,5 +16,6 @@ data:
       - hostname: "*.${SECRET_DOMAIN}"
         service: "https://traefik.networking.svc.cluster.local"
         originRequest:
+          originServerName: "*.${SECRET_DOMAIN}"
           noTLSVerify: true
       - service: http_status:404

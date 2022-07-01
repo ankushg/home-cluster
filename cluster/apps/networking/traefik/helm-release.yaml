@@ -48,6 +48,10 @@ spec:
             # below.
             - --config
             - /etc/cloudflared/config/config.yaml
+            - --loglevel
+            - debug
+            - --transport-loglevel
+            - info
             - run
           livenessProbe:
             httpGet:

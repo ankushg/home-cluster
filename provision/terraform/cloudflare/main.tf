@@ -141,7 +141,7 @@ resource "cloudflare_record" "tunnel" {
 resource "cloudflare_record" "lan-gateway" {
   name    = "lan-gateway"
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
-  value   = chomp(data.sops_file.cloudflare_secrets.data["k8s_gateway_ip"])
+  value   = chomp(data.sops_file.cloudflare_secrets.data["k8s_ingress_ip"])
   proxied = false
   type    = "A"
   ttl     = 1 # Auto
