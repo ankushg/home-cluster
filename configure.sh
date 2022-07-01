@@ -35,25 +35,29 @@ main() {
     if [[ "${verify}" == 1 ]]; then
         success
     else
-        # sops configuration file
+        # generate sops configuration file
         envsubst < "${PROJECT_DIR}/tmpl/.sops.yaml" \
             > "${PROJECT_DIR}/.sops.yaml"
 
-        # cluster
-        envsubst < "${PROJECT_DIR}/tmpl/cluster/cluster-secrets.sops.yaml" \
-            > "${PROJECT_DIR}/cluster/config/cluster-secrets.sops.yaml"
+        # generate cluster settings
         envsubst < "${PROJECT_DIR}/tmpl/cluster/cluster-settings.yaml" \
             > "${PROJECT_DIR}/cluster/config/cluster-settings.yaml"
 
         envsubst < "${PROJECT_DIR}/tmpl/cluster/flux-cluster.yaml" \
             > "${PROJECT_DIR}/cluster/flux/flux-system/flux-cluster.yaml"
 
+        #  generate cluster secrets
+        envsubst < "${PROJECT_DIR}/tmpl/cluster/cluster-secrets.sops.yaml" \
+            > "${PROJECT_DIR}/cluster/config/cluster-secrets.sops.yaml"
         envsubst < "${PROJECT_DIR}/tmpl/cluster/cert-manager-secret.sops.yaml" \
             > "${PROJECT_DIR}/cluster/core/cluster-issuers/secret.sops.yaml"
+        envsubst < "${PROJECT_DIR}/tmpl/cluster/cloudflare-ddns-secret.sops.yaml" \
+            > "${PROJECT_DIR}/cluster/apps/networking/cloudflare-ddns/secret.sops.yaml"
 
-        # sops
+        # encrypt cluster secrets
         sops --encrypt --in-place "${PROJECT_DIR}/cluster/config/cluster-secrets.sops.yaml"
         sops --encrypt --in-place "${PROJECT_DIR}/cluster/core/cluster-issuers/secret.sops.yaml"
+        sops --encrypt --in-place "${PROJECT_DIR}/cluster/apps/networking/cloudflare-ddns/secret.sops.yaml"
     fi
 }
 
