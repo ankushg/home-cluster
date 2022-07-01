@@ -15,9 +15,23 @@ data:
     warp-routing:
       enabled: true
     ingress:
+      - hostname: "echo-server.${SECRET_DOMAIN}"
+        service: "https://traefik.networking.svc.cluster.local"
+        originRequest:
+          originServerName: "echo-server.${SECRET_DOMAIN}"
+          noTLSVerify: true
+      - hostname: "flux-receiver.${SECRET_DOMAIN}"
+        service: "https://traefik.networking.svc.cluster.local"
+        originRequest:
+          originServerName: "flux-receiver.${SECRET_DOMAIN}"
+          noTLSVerify: true
+      - hostname: "hass.${SECRET_DOMAIN}"
+        service: "https://traefik.networking.svc.cluster.local"
+        originRequest:
+          originServerName: "hass.${SECRET_DOMAIN}"
+          noTLSVerify: true
       - hostname: "*.${SECRET_DOMAIN}"
         service: "https://traefik.networking.svc.cluster.local"
         originRequest:
-          originServerName: "${SECRET_DOMAIN}"
           noTLSVerify: true
       - service: http_status:404
