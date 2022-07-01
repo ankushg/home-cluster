@@ -37,18 +37,30 @@ spec:
         enabled: true
         ingressClassName: "traefik"
         annotations:
+          # traefik + certs
           cert-manager.io/cluster-issuer: "letsencrypt-production"
+          kubernetes.io/ingress.class: "traefik"
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+
+          # Hostname
+          coredns.io/hostname: &host "hass.${SECRET_DOMAIN}"
+
+          ## public access via tunnel
+          external-dns.alpha.kubernetes.io/target: "homelab-tunnel.${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
+          external-dns/is-public: "true"
+
+          # Hajimari
           hajimari.io/enable: "true"
           hajimari.io/icon: "home-automation"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
-          - host: "hass.${SECRET_DOMAIN}"
+          - host: *host
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - "hass.${SECRET_DOMAIN}"
+              - *host
             secretName: "home-assistant-tls"
     persistence:
       config:
