@@ -8,9 +8,11 @@ vars:
 
 env:
   KUBECONFIG: "{{.PROJECT_DIR}}/kubeconfig"
+  KUBE_CONFIG_PATH: "{{.PROJECT_DIR}}/kubeconfig"
 
 includes:
   cluster: .taskfiles/ClusterTasks.yml
+  terraform: .taskfiles/TerraformTasks.yml
   kubectl: .taskfiles/kubectl.yml
   flux: .taskfiles/flux.yml
   format: .taskfiles/format.yml

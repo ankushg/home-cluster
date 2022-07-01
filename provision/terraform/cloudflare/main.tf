@@ -5,6 +5,10 @@ terraform {
       source  = "cloudflare/cloudflare"
       version = "3.17.0"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.12.0"
+    }
     http = {
       source  = "hashicorp/http"
       version = "2.2.0"
@@ -22,6 +26,10 @@ data "sops_file" "cloudflare_secrets" {
 
 provider "cloudflare" {
   api_token = data.sops_file.cloudflare_secrets.data["cloudflare_token"]
+}
+
+provider "kubernetes" {
+  # KUBE_CONFIG_PATH environment variable is set by Taskfile
 }
 
 data "cloudflare_zones" "domain" {
@@ -81,6 +89,25 @@ data "http" "ipv4" {
   url = "http://ipv4.icanhazip.com"
 }
 
+locals {
+  public_ips = [
+    "${chomp(data.http.ipv4.body)}/32",
+    # "${chomp(data.http.public_ipv6.body)}/128"
+  ]
+}
+
+resource "random_password" "tunnel_secret" {
+  length  = 64
+  special = false
+}
+
+resource "cloudflare_argo_tunnel" "homelab" {
+  account_id = data.sops_file.cloudflare_secrets.data["cloudflare_account_id"]
+  name       = "homelab"
+  secret     = base64encode(random_password.tunnel_secret.result)
+}
+
+# Not proxied. Can use with external-dns for access via port forwarding.
 resource "cloudflare_record" "ipv4" {
   name    = "ipv4"
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
@@ -90,11 +117,47 @@ resource "cloudflare_record" "ipv4" {
   ttl     = 1
 }
 
+# Not proxied, not accessible. Can use with external-dns for access through the tunnel
+resource "cloudflare_record" "tunnel" {
+  name    = "homelab-tunnel"
+  zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
+  value   = "${cloudflare_argo_tunnel.homelab.id}.cfargotunnel.com"
+  type    = "CNAME"
+  proxied = false
+  ttl     = 1 # Auto
+}
+
+# Not proxied, not accessible. Can use with external-dns for access on the LAN
+resource "cloudflare_record" "lan-gateway" {
+  name    = "lan-gateway"
+  zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
+  value   = chomp(data.sops_file.cloudflare_secrets.data["k8s_gateway_ip"])
+  proxied = false
+  type    = "A"
+  ttl     = 1 # Auto
+}
+
 resource "cloudflare_record" "root" {
   name    = data.sops_file.cloudflare_secrets.data["cloudflare_domain"]
   zone_id = lookup(data.cloudflare_zones.domain.zones[0], "id")
-  value   = "ipv4.${data.sops_file.cloudflare_secrets.data["cloudflare_domain"]}"
+  value   = "homelab-tunnel.${data.sops_file.cloudflare_secrets.data["cloudflare_domain"]}"
   proxied = true
   type    = "CNAME"
   ttl     = 1
+}
+
+resource "kubernetes_secret" "cloudflared_credentials" {
+  metadata {
+    name      = "cloudflared-credentials"
+    namespace = "networking"
+  }
+
+  data = {
+    "credentials.json" = jsonencode({
+      AccountTag   = data.sops_file.cloudflare_secrets.data["cloudflare_account_id"]
+      TunnelName   = cloudflare_argo_tunnel.homelab.name
+      TunnelID     = cloudflare_argo_tunnel.homelab.id
+      TunnelSecret = base64encode(random_password.tunnel_secret.result)
+    })
+  }
 }

@@ -30,14 +30,10 @@ spec:
     credentials:
       existingSecret: cloudflared-credentials
     config:
-      tunnel: tunnel
+      tunnel: homelab-tunnel
       ingress:
-        - hostname: "test.${SECRET_DOMAIN}"
-          service: hello_world
-          originRequest:
-            noTLSVerify: true
         - hostname: "*.${SECRET_DOMAIN}"
-          service: "https://traefik.networking.svc.cluster.local"
+          service: ${METALLB_K8S_GATEWAY_ADDR}
           originRequest:
             noTLSVerify: true
         - service: http_status:404
