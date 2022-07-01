@@ -39,20 +39,21 @@ spec:
         enabled: true
         ingressClassName: "traefik"
         annotations:
+          coredns.io/hostname: &host "omada.${SECRET_DOMAIN}"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           hajimari.io/enable: "true"
           hajimari.io/icon: "router-wireless-settings"
           traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: home-omada-headers@kubernetescrd,home-omada-redirect@kubernetescrd
         hosts:
-          - host: "omada.${SECRET_DOMAIN}"
+          - host: *host
             paths:
               - path: /
                 pathType: Prefix
         tls:
           - hosts:
-              - "omada.${SECRET_DOMAIN}"
-            secretName: "omada-controller-tls"
+              - *host
+            secretName: "{{ .Release.Name }}-tls"
     service:
       main:
         enabled: true

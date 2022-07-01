@@ -27,14 +27,15 @@ spec:
       enabled: true
       className: "traefik"
       annotations:
+        coredns.io/hostname: &host "dashboard.${SECRET_DOMAIN}"
         cert-manager.io/cluster-issuer: "letsencrypt-production"
         hajimari.io/enable: "true"
         hajimari.io/icon: "chart-box"
         traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         traefik.ingress.kubernetes.io/router.middlewares: "networking-internal-only@kubernetescrd"
       hosts:
-        - "dashboard.${SECRET_DOMAIN}"
+        - *host
       tls:
         - hosts:
-            - "dashboard.${SECRET_DOMAIN}"
-          secretName: "kubernetes-dashboard-tls"
+            - *host
+          secretName: "{{ .Release.Name }}-tls"
