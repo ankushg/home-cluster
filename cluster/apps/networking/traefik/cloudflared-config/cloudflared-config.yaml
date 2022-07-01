@@ -16,8 +16,9 @@ data:
       - hostname: "echo-server.${SECRET_DOMAIN}"
         service: "https://traefik.networking.svc.cluster.local"
         originRequest:
+          originServerName: "echo-server.${SECRET_DOMAIN}"
           noTLSVerify: true
-      - hostname: "*.${SECRET_DOMAIN}"
+      - hostname: "${SECRET_DOMAIN}"
         service: "https://traefik.networking.svc.cluster.local"
         originRequest:
           originServerName: "*.${SECRET_DOMAIN}"
