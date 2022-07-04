@@ -25,7 +25,7 @@ spec:
   values:
     image:
       repository: koush/scrypted
-      tag: v0.1.11
+      tag: v0.1.14
     env:
       TZ: "${TIMEZONE}"
     service:
