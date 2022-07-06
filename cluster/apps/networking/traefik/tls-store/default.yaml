@@ -2,6 +2,7 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: TLSStore
 metadata:
+  # TLSStore CR with the name default apply to all ingresses without SNI or matching domain
   name: default
   namespace: networking
 spec:
