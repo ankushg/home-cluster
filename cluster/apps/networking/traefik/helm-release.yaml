@@ -120,6 +120,15 @@ spec:
           options: "default"
         # Enable HTTP/3. Requires enabling experimental http3 feature and tls.
         http3: true
+        # Allow these IPs to set the X-Forwarded-* headers.
+        forwardedHeaders:
+          trustedIPs:
+            - "::/0"
+            - "0.0.0.0/0"
+        proxyProtocol:
+          trustedIPs:
+            - "::/0"
+            - "0.0.0.0/0"
       metrics:
         port: 8082
         expose: true
