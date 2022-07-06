@@ -30,7 +30,7 @@ spec:
       repository: ghcr.io/tarampampam/error-pages
       tag: 2.16.0
     env:
-      TEMPLATE_NAME: lost-in-space
+      TEMPLATE_NAME: shuffle
       SHOW_DETAILS: "false"
     resources:
       requests:
