@@ -40,7 +40,7 @@ spec:
         reloader.stakater.com/auto: "true"
       additionalContainers:
         - name: cloudflared
-          image: raspbernetes/cloudflared:2022.6.3
+          image: raspbernetes/cloudflared:2022.7.1
           args:
             - tunnel
             # Points cloudflared to the config file, which configures what
