@@ -9,7 +9,7 @@ repos:
         entry: bash -c 'task format:default; git add -u' --
         pass_filenames: false
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.26.3
+    rev: v1.27.1
     hooks:
       - args:
           - --config-file
