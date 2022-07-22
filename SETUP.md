@@ -225,7 +225,7 @@ In order to use `cert-manager` with the Cloudflare DNS challenge you will need t
 
    ```sh
    # renovate: datasource=github-releases depName=k3s-io/k3s
-   K3S_VERSION="v1.24.2+k3s1"
+   K3S_VERSION="v1.24.3+k3s1"
 
    k3sup install \
        --host=169.254.1.1 \
