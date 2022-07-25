@@ -156,24 +156,20 @@ resource "cloudflare_record" "root" {
   ttl     = 1
 }
 
-resource "kubernetes_secret" "cloudflared_credentials" {
+resource "kubernetes_secret" "tunnel_credentials" {
   metadata {
-    name      = "cloudflared-credentials"
+    name      = "tunnel-credentials"
     namespace = "networking"
   }
 
   data = {
-    "credential.json" = jsonencode({
-      AccountTag   = data.sops_file.cloudflare_secrets.data["cloudflare_account_id"]
-      TunnelName   = cloudflare_argo_tunnel.homelab.name
-      TunnelID     = cloudflare_argo_tunnel.homelab.id
-      TunnelSecret = base64encode(random_password.tunnel_secret.result)
-    })
-    "credentials.json" = jsonencode({
-      AccountTag   = data.sops_file.cloudflare_secrets.data["cloudflare_account_id"]
-      TunnelName   = cloudflare_argo_tunnel.homelab.name
-      TunnelID     = cloudflare_argo_tunnel.homelab.id
-      TunnelSecret = base64encode(random_password.tunnel_secret.result)
-    })
+    "credentials.json" = base64encode(
+      jsonencode({
+        AccountTag   = data.sops_file.cloudflare_secrets.data["cloudflare_account_id"]
+        TunnelName   = cloudflare_argo_tunnel.homelab.name
+        TunnelID     = cloudflare_argo_tunnel.homelab.id
+        TunnelSecret = base64encode(random_password.tunnel_secret.result)
+      })
+    )
   }
 }

@@ -4,6 +4,7 @@ resources:
   - namespace.yaml
   # - blocky
   - cloudflare-ddns
+  - cloudflared
   - external-dns
   - ingress-nginx
   - metallb
