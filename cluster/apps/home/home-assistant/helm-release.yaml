@@ -35,12 +35,10 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "traefik"
+        ingressClassName: "nginx"
         annotations:
-          # traefik + certs
+          # certs
           cert-manager.io/cluster-issuer: "letsencrypt-production"
-          kubernetes.io/ingress.class: "traefik"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
 
           # Hostname
           coredns.io/hostname: &host "hass.${SECRET_DOMAIN}"
@@ -87,13 +85,12 @@ spec:
           - "/config/.vscode"
         ingress:
           enabled: true
-          ingressClassName: "traefik"
+          ingressClassName: "nginx"
           annotations:
             coredns.io/hostname: &config-host "hass-config.${SECRET_DOMAIN}"
             cert-manager.io/cluster-issuer: "letsencrypt-production"
             hajimari.io/enable: "true"
             hajimari.io/icon: "home-automation"
-            traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           hosts:
             - host: *config-host
               paths:

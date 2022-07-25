@@ -5,18 +5,15 @@ metadata:
   name: webhook-receiver
   namespace: flux-system
   annotations:
-    # traefik + certs
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
-    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
 
     coredns.io/hostname: &host "flux-receiver.${SECRET_DOMAIN}"
 
     external-dns.alpha.kubernetes.io/target: "homelab-tunnel.${SECRET_DOMAIN}"
     external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
     external-dns/is-public: "true"
-    traefik.ingress.kubernetes.io/router.middlewares: "networking-cloudflare-only@kubernetescrd"
 spec:
-  ingressClassName: traefik
+  ingressClassName: nginx
   rules:
     - host: *host
       http:

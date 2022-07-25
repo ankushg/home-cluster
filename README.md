@@ -16,7 +16,7 @@ This is a _highly_ (but not necessarily _intelligently_) opinionated deployment 
 - deployed by [k3sup](https://github.com/alexellis/k3sup)
 - backed by the [GitOps](https://www.weave.works/blog/what-is-gitops-really) tool [Flux](https://toolkit.fluxcd.io/)
 - secured with help of the [Flux SOPS integration](https://toolkit.fluxcd.io/guides/mozilla-sops/),
-- accessed through [traefik](https://traefik.io)
+- accessed through [ingress-nginx](https://kubernetes.github.io/ingress-nginx/)
 
 ## 🙇 Thanks
 

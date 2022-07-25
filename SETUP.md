@@ -24,7 +24,7 @@ Feel free to read up on any of these technologies before you get started to be m
 - [flux](https://toolkit.fluxcd.io/) - GitOps tool for deploying manifests from the `cluster` directory
 - [metallb](https://metallb.universe.tf/) - bare metal load balancer
 - [cert-manager](https://cert-manager.io/) - SSL certificates - with Cloudflare DNS challenge
-- [traefik](https://traefik.io) - ingress controller
+- [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) - Kubernetes ingress controller used for a HTTP reverse proxy of Kubernetes ingresses
 - [hajimari](https://github.com/toboshii/hajimari) - start page with ingress discovery
 - [system-upgrade-controller](https://github.com/rancher/system-upgrade-controller) - upgrade k3s
 - [reloader](https://github.com/stakater/Reloader) - restart pod when configmap or secret changes
@@ -221,7 +221,7 @@ In order to use `cert-manager` with the Cloudflare DNS challenge you will need t
 
 2. Install the master node(s)
 
-   _We will be installing metallb instead of servicelb, traefik and metrics-server will be installed with Flux._
+   _We will be installing metallb instead of servicelb, ingress and metrics-server will be installed with Flux._
 
    ```sh
    # renovate: datasource=github-releases depName=k3s-io/k3s
@@ -307,7 +307,7 @@ If your cluster is not accessible to outside world you can update your hosts fil
 This will only be temporary and you should set up DNS to handle these records either manually or automated with [external-dns](https://github.com/kubernetes-sigs/external-dns).
 
 ```sh
-echo "${BOOTSTRAP_SVC_TRAEFIK_ADDR} ${BOOTSTRAP_CLOUDFLARE_DOMAIN} hajimari.${BOOTSTRAP_CLOUDFLARE_DOMAIN}" | sudo tee -a /etc/hosts
+echo "${BOOTSTRAP_SVC_INGRESS_ADDR} ${BOOTSTRAP_CLOUDFLARE_DOMAIN} hajimari.${BOOTSTRAP_CLOUDFLARE_DOMAIN}" | sudo tee -a /etc/hosts
 ```
 
 Head over to your browser and you _should_ be able to access `https://hajimari.${BOOTSTRAP_CLOUDFLARE_DOMAIN}`

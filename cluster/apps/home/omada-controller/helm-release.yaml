@@ -37,14 +37,12 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "traefik"
+        ingressClassName: "nginx"
         annotations:
           coredns.io/hostname: &host "omada.${SECRET_DOMAIN}"
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           hajimari.io/enable: "true"
           hajimari.io/icon: "router-wireless-settings"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-          traefik.ingress.kubernetes.io/router.middlewares: home-omada-headers@kubernetescrd,home-omada-redirect@kubernetescrd
         hosts:
           - host: *host
             paths:
@@ -57,8 +55,6 @@ spec:
     service:
       main:
         enabled: true
-        annotations:
-          traefik.ingress.kubernetes.io/service.serversscheme: https
       controller:
         enabled: true
         type: LoadBalancer

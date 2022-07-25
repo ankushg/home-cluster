@@ -4,8 +4,7 @@ resources:
   - namespace.yaml
   # - blocky
   - cloudflare-ddns
-  - error-pages
   - external-dns
-  - k8s-gateway
+  - ingress-nginx
   - metallb
-  - traefik
+  - k8s-gateway

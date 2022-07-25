@@ -25,14 +25,12 @@ spec:
   values:
     ingress:
       enabled: true
-      className: "traefik"
+      className: "nginx"
       annotations:
         coredns.io/hostname: &host "dashboard.${SECRET_DOMAIN}"
         cert-manager.io/cluster-issuer: "letsencrypt-production"
         hajimari.io/enable: "true"
         hajimari.io/icon: "chart-box"
-        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-        traefik.ingress.kubernetes.io/router.middlewares: "networking-internal-only@kubernetescrd"
       hosts:
         - *host
       tls:

@@ -33,7 +33,6 @@ spec:
         cert-manager.io/cluster-issuer: "letsencrypt-production"
         hajimari.io/enable: "true"
         hajimari.io/icon: ""
-        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
       hosts:
         - "netdata.k8s.local"
         - "netdata.${SECRET_DOMAIN}"
@@ -42,7 +41,7 @@ spec:
             - "netdata.${SECRET_DOMAIN}"
           secretName: "netdata-tls"
       spec:
-        ingressClassName: "traefik"
+        ingressClassName: "nginx"
     env:
       TZ: "${TIMEZONE}"
     parent:
