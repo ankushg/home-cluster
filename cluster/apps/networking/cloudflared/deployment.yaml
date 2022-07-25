@@ -41,7 +41,7 @@ spec:
             # Each tunnel has an associated "credentials file" which authorizes machines
             # to run the tunnel. cloudflared will read this file from its local filesystem,
             # and it'll be stored in a k8s secret.
-            - name: cloudflared-credentials # creds
+            - name: creds
               mountPath: /etc/cloudflared/creds
               readOnly: true
           resources:
@@ -52,7 +52,7 @@ spec:
               cpu: 200m
               memory: 256Mi
       volumes:
-        - name: creds # creds
+        - name: creds
           secret:
             # By default, the credentials file will be created under ~/.cloudflared/<tunnel ID>.json
             # when you run `cloudflared tunnel create`. You can move it into a secret by using:
