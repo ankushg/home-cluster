@@ -45,8 +45,8 @@ spec:
           hajimari.io/icon: "router-wireless-settings"
 
           # Add a proxy redirect because omada expects it and will redirect to the ssl port if it's not explicitly in the URL
-          nginx.ingress.kubernetes.io/proxy-redirect-from: "$forward_scheme://$http_host:$port"
-          nginx.ingress.kubernetes.io/proxy-redirect-to: "$forward_scheme://$http_host"
+          nginx.ingress.kubernetes.io/proxy-redirect-from: "https://$http_host:$port"
+          nginx.ingress.kubernetes.io/proxy-redirect-to: "https://$http_host"
           nginx.ingress.kubernetes.io/proxy-buffering: "off"
 
           # Add a few more headers to make Omada happy
