@@ -4,6 +4,9 @@ kind: Deployment
 metadata:
   name: cloudflared
   namespace: networking
+  annotations:
+    configmap.reloader.stakater.com/reload: "cloudflared"
+    secret.reloader.stakater.com/reload: "tunnel-credentials"
 spec:
   selector:
     matchLabels:
