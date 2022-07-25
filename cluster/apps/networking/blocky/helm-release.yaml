@@ -65,7 +65,7 @@ spec:
           - https://cloudflare-dns.com/dns-query
       customDNS:
         mapping:
-          ${SECRET_DOMAIN}: ${SVC_TRAEFIK_ADDR}
+          ${SECRET_DOMAIN}: ${METALLB_INGRESS_ADDR}
       prometheus:
         enable: true
         path: /metrics
