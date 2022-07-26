@@ -52,6 +52,7 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           hajimari.io/enable: "true"
           hajimari.io/icon: "doorbell-video"
+          hajimari.io/group: "Home Automation"
         hosts:
           - host: "ringmqtt.${SECRET_DOMAIN}"
             paths:
@@ -86,6 +87,7 @@ spec:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
             hajimari.io/enable: "true"
             hajimari.io/icon: "doorbell-video"
+            hajimari.io/group: "Dev"
           hosts:
             - host: "ringmqtt-config.${SECRET_DOMAIN}"
               paths:

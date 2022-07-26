@@ -46,6 +46,7 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           hajimari.io/enable: "true"
           hajimari.io/icon: "cctv"
+          hajimari.io/group: "Home Automation"
         hosts:
           - host: *host
             paths:

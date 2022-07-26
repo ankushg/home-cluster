@@ -85,6 +85,7 @@ spec:
           # hajimari
           hajimari.io/enable: "true"
           hajimari.io/icon: "video-input-antenna"
+          hajimari.io/group: "Dev"
         hosts:
           - host: *host
             paths:
