@@ -38,12 +38,11 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           coredns.io/hostname: &host "goldilocks.${SECRET_DOMAIN}"
           hajimari.io/enable: "true"
-          hajimari.io/icon: "video-input-antenna"
         hosts:
           - host: *host
             paths:
               - path: /
-                pathType: Prefix
+                type: Prefix
         tls:
           - hosts:
               - *host
