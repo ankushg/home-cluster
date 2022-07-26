@@ -6,4 +6,5 @@ resources:
   - netdata
   ## need to install prometheus-operator first:
   # - omada-exporter
-  - polaris
+  ## Polaris is blocked on multi-arch images https://github.com/FairwindsOps/polaris/issues/284
+  # - polaris
