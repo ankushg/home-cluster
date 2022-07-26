@@ -8,3 +8,4 @@ resources:
   # - omada-exporter
   ## Polaris is blocked on multi-arch images https://github.com/FairwindsOps/polaris/issues/284
   # - polaris
+  - vpa
