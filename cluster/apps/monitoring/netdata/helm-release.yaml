@@ -40,8 +40,8 @@ spec:
         - hosts:
             - "netdata.${SECRET_DOMAIN}"
           secretName: "netdata-tls"
-      spec:
-        ingressClassName: "nginx"
+      # spec: # TODO: figure out how to remove the annotations.kubernetes.io/ingress.class annotation
+      #    ingressClassName: "nginx"
     env:
       TZ: "${TIMEZONE}"
     parent:
