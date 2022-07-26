@@ -35,19 +35,8 @@ spec:
       ingress:
         ingressClassName: "nginx"
         annotations:
-          # certs
           cert-manager.io/cluster-issuer: "letsencrypt-production"
-
-          # Hostname
           coredns.io/hostname: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
-
-          ## public access via tunnel
-          # external-dns.alpha.kubernetes.io/target: "homelab-tunnel.${SECRET_DOMAIN}"
-          # external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
-          # external-dns/is-public: "true"
-          # TODO add basicauth or jwt for tunnel access
-
-          ## Hajimari
           hajimari.io/enable: "true"
           hajimari.io/icon: "video-input-antenna"
         hosts:
