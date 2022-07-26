@@ -33,7 +33,6 @@ spec:
         cert-manager.io/cluster-issuer: "letsencrypt-production"
         hajimari.io/enable: "true"
         hajimari.io/icon: ""
-        hajimari.io/group: "Dev"
       hosts:
         - "netdata.k8s.local"
         - "netdata.${SECRET_DOMAIN}"

@@ -51,7 +51,6 @@ spec:
           # Hajimari
           hajimari.io/enable: "true"
           hajimari.io/icon: "home-automation"
-          hajimari.io/group: "Home Automation"
         hosts:
           - host: *host
             paths:
@@ -92,7 +91,6 @@ spec:
             cert-manager.io/cluster-issuer: "letsencrypt-production"
             hajimari.io/enable: "true"
             hajimari.io/icon: "home-automation"
-            hajimari.io/group: "Dev"
           hosts:
             - host: *config-host
               paths:

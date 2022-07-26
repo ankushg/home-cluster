@@ -31,7 +31,6 @@ spec:
         cert-manager.io/cluster-issuer: "letsencrypt-production"
         hajimari.io/enable: "true"
         hajimari.io/icon: "chart-box"
-        hajimari.io/group: "Dev"
       hosts:
         - *host
       tls:

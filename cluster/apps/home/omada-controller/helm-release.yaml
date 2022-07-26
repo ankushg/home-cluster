@@ -43,7 +43,6 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt-production"
           hajimari.io/enable: "true"
           hajimari.io/icon: "router-wireless-settings"
-          hajimari.io/group: "Network"
           # TODO: #331 configure nginx redirect rules and headers
           # Add a proxy redirect because omada expects it and will redirect to the ssl port if it's not explicitly in the URL
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
