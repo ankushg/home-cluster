@@ -6,3 +6,4 @@ resources:
   - netdata
   ## need to install prometheus-operator first:
   # - omada-exporter
+  - polaris
